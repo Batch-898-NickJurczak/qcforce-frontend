@@ -1,21 +1,15 @@
-<div id="root" class="d-flex flex-column">
-  <app-header></app-header>
-  <div class="flex-fill bg-light">
-    <app-filter-items></app-filter-items>
-    <div class="sub-menu-title text-nowrap">
-      <p class="title">{{ reportVariable | uppercase }}</p>
-      <hr>
-    </div>
-    <div class="d-flex justify-content-md-center flex-nowrap overflow-auto mb-3" *ngIf="weekFilter !== 'All'">
-      <app-rating-graph></app-rating-graph>
-    </div>
-    <div class="d-flex justify-content-md-center flex-nowrap overflow-auto mb-3" *ngIf="weekFilter === 'All'">
-      <app-weekly-reports></app-weekly-reports>
-    </div>
-    <div class="d-flex justify-content-center overflow-auto flex-wrap mb-3">
-      <app-pace-graph></app-pace-graph>
-      <app-assessment-graph></app-assessment-graph>
-    </div>
-  </div>
-  <app-footer></app-footer>
+<app-navbar></app-navbar>
+<app-filter-items></app-filter-items>
+<div class="sub-menu-title text-nowrap">
+  <p class="title">{{ reportVariable | uppercase }}</p><hr>
+</div>
+<div class="d-flex justify-content-md-center flex-nowrap overflow-auto mb-3" *ngIf="weekFilter !== 'All'">
+  <app-rating-graph></app-rating-graph>
+</div>
+<div class="d-flex justify-content-md-center flex-nowrap overflow-auto mb-3" *ngIf="weekFilter === 'All'">
+  <app-weekly-reports></app-weekly-reports>
+</div>
+<div class="d-flex justify-content-center overflow-auto flex-wrap mb-3">
+  <app-pace-graph></app-pace-graph>
+  <app-assessment-graph></app-assessment-graph>  
 </div>

@@ -1,36 +1,30 @@
-<div id="root" class="d-flex flex-column">
-    <app-header></app-header>
-    <div class="flex-fill bg-light">
-        <div class="p-3 ">
-            <h2 class="title ">{{ 'Revature Training Batches'| uppercase }}</h2>
-            <hr />
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">batchId</th>
-                        <th scope="col">batchName</th>
-                        <th scope="col">startDate</th>
-                        <th scope="col">endDate</th>
-                        <th scope="col">skill</th>
-                        <th scope="col">location</th>
-                        <th scope="col">current week</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr *ngFor="let batch of (batches$ | async)">
-                        <td>{{batch.batchId}}</td>
-                        <td routerLink="/batches-details" (click)="saveBatchByBatchName(batch.batchName)">
-                            {{batch.batchName}}</td>
-                        <td>{{batch.startDate | date:'mediumDate'}}</td>
-                        <td>{{batch.endDate | date:'mediumDate'}}</td>
-                        <td>{{batch.skill}}</td>
-                        <td>{{batch.batchLocation}}</td>
-                        <td>{{batch.currentWeek}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <app-footer></app-footer>
+<app-navbar></app-navbar>
+<div class="p-3 ">
+    <h2 class="title ">{{ 'Revature Training Batches'| uppercase }}</h2>
+    <hr/>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">batchId</th>
+                <th scope="col">batchName</th>
+                <th scope="col">startDate</th>
+                <th scope="col">endDate</th>
+                <th scope="col">skill</th>
+                <th scope="col">location</th>
+                <th scope="col">current week</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr *ngFor="let batch of (batches$ | async)">
+                <td>{{batch.batchId}}</td>
+                <td routerLink="/batches-details" (click)="saveBatchByBatchName(batch.batchName)">{{batch.batchName}}</td>
+                <td>{{batch.startDate | date:'mediumDate'}}</td>
+                <td>{{batch.endDate | date:'mediumDate'}}</td> 
+                <td>{{batch.skill}}</td> 
+                <td>{{batch.batchLocation}}</td>
+                <td>{{batch.currentWeek}}</td>              
+            </tr>
+        </tbody>
+    </table>
 </div>

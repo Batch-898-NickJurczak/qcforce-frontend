@@ -1,35 +1,30 @@
-<div id="root" class="d-flex flex-column">
-    <app-header></app-header>
-    <div class="flex-fill bg-light">
-        <div class="p-3 ">
-            <h2 class="title ">{{'name of batch'| uppercase }}: {{batchName}}</h2>
-        </div>
-        <hr />
-        <div class="p-3 ">
-            <h2 class="title ">{{'Revature Associates in Training Batches'| uppercase }}</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Associate First Name</th>
-                        <th scope="col">Associate Last Name</th>
-                        <th scope="col">Associate Start Date</th>
-                        <th scope="col">Associate End Date</th>
-                        <th scope="col">Associate Email</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr *ngFor="let associate of (associates$ | async)">
-                        <td>{{associate.firstName}}</td>
-                        <td>{{associate.lastName}}</td>
-                        <td>{{associate.startDate | date:'mediumDate'}}</td>
-                        <td>{{associate.endDate | date:'mediumDate'}}</td>
-                        <td>{{associate.email}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <p routerLink="/batch-list">back to batch list</p>
-    </div>
-    <app-footer></app-footer>
+<app-navbar></app-navbar>
+<div class="p-3 ">
+    <h2 class="title ">{{'name of batch'| uppercase }}: {{batchName}}</h2>
 </div>
+<hr/>
+<div class="p-3 ">
+    <h2 class="title ">{{'Revature Associates in Training Batches'| uppercase }}</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Associate First Name</th>
+                <th scope="col">Associate Last Name</th>
+                <th scope="col">Associate Start Date</th>
+                <th scope="col">Associate End Date</th>
+                <th scope="col">Associate Email</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr *ngFor="let associate of (associates$ | async)">
+                <td>{{associate.firstName}}</td>
+                <td>{{associate.lastName}}</td>
+                <td>{{associate.startDate | date:'mediumDate'}}</td>
+                <td>{{associate.endDate | date:'mediumDate'}}</td> 
+                <td>{{associate.email}}</td>             
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p routerLink="/batch-list">back to batch list</p>

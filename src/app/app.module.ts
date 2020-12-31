@@ -41,6 +41,8 @@ import { environment } from '../environments/environment';
 /*store imports*/
 import * as fromStore from './store';
 import { AssessmentGraphComponent } from './components/reports/assessment-graph/assessment-graph.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { AdminModule } from './admin/admin.module';
 import { CommonModule } from '@angular/common';
 import { TakeSurveyModule } from './takeSurvey/take-survey.module';
 
@@ -59,8 +61,8 @@ import { TakeSurveyModule } from './takeSurvey/take-survey.module';
     PaceGraphComponent,
     SurveyViewComponent,
     SurveyQuestionsComponent,
-    AssessmentGraphComponent
-
+    AssessmentGraphComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
