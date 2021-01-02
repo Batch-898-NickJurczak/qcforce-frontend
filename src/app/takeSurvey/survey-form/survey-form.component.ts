@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { SurveyForm } from 'src/app/models/survey-form.model';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
-import { SurveyFormService } from 'src/app/services/survey-form.service';
+import {  TakeSurveyService } from 'src/app/services/take-survey.service';
 
 @Component({
   selector: 'app-survey-form',
@@ -26,13 +26,12 @@ export class SurveyFormComponent implements OnInit {
   } as SurveySubmission;
 
   submitted = false;
-  /* used in */ 
-  token !:String;
+  
 
   constructor(
     private route: ActivatedRoute,
     private fb:FormBuilder,
-    private surveyFormService: SurveyFormService
+    private surveyFormService: TakeSurveyService
     ) {}
     
 
@@ -49,17 +48,9 @@ export class SurveyFormComponent implements OnInit {
     /*  */ 
     this.mainSurveyForm.valueChanges.subscribe(newVal=>console.log(newVal))
 
-    /*  takes in token from the url PATH ' survey?token=948n613x938nm384n2b'  */ 
-    function getTokenFromUrl(): any {
-    this.route.queryParams.subscribe(params => {
-      //console.log(params);
-      this.token=params["token"];
-      console.log(this.token);
-      return this.token;
-      })
-    }
+   
 
-    /*  call surveyFormService.postSurveyForm(surveyForm) */ 
+    /*  call surveyFormService.postSurveyForm(surveySubmission) */ 
   }
   
   onSubmit(): void {

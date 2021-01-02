@@ -42,7 +42,7 @@ describe('MultipleChoiceComponent', () => {
   });
 
   it ('form should be invalid', async (() => {
-    component.surveyForm.controls['multipleChoice'].setValue('');
-    expect(component.surveyForm.valid).toBeFalsy();
+    component.mainSurveyForm.controls['multipleChoice'].setValue('');
+    expect(component.mainSurveyForm.valid).toBeFalsy();
   }));
 });

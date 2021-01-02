@@ -41,7 +41,7 @@ describe('PickFromRangeComponent', () => {
   });
 
   it ('form should be invalid', async (() => {
-    component.surveyForm.controls['pickFromRange'].setValue('');
-    expect(component.surveyForm.valid).toBeFalsy();
+    component.mainSurveyForm.controls['pickFromRange'].setValue('');
+    expect(component.mainSurveyForm.valid).toBeFalsy();
   }));
 });
