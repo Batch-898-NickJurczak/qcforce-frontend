@@ -1,33 +1,26 @@
-import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { PickFromRangeComponent } from './pick-from-range.component';
 
 describe('PickFromRangeComponent', () => {
   let component: PickFromRangeComponent;
   let fixture: ComponentFixture<PickFromRangeComponent>;
-  let de: DebugElement;
-  let el: HTMLElement;
+
+  const formBuilder = new FormBuilder();
+  const mockForm = formBuilder.group({
+    shortAnswer: ['', [Validators.required, Validators.maxLength(100)]],
+    multipleChoice: ['', Validators.required],
+    pickFromRange: ['', Validators.required],
+  });
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PickFromRangeComponent ],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule
-      ]
-    })
-    .compileComponents().then(() => {
-      fixture = TestBed.createComponent(PickFromRangeComponent);
-
-      component = fixture.componentInstance;
-
-      de = fixture.debugElement.query(By.css('form'));
-      el = de.nativeElement;
-    });
+    TestBed.configureTestingModule({})
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(PickFromRangeComponent);
+        component = fixture.componentInstance;
+      });
   }));
 
   beforeEach(() => {
@@ -40,8 +33,9 @@ describe('PickFromRangeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it ('form should be invalid', async (() => {
-    component.mainSurveyForm.controls['pickFromRange'].setValue('');
+  it('form should be invalid', () => {
+    component.mainSurveyForm = mockForm;
+    component.mainSurveyForm.controls.pickFromRange.setValue('');
     expect(component.mainSurveyForm.valid).toBeFalsy();
-  }));
+  });
 });
