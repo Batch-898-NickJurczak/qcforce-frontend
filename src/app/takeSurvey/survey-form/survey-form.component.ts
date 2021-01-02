@@ -9,61 +9,54 @@ import { SurveyFormService } from 'src/app/services/survey-form.service';
 @Component({
   selector: 'app-survey-form',
   templateUrl: './survey-form.component.html',
-  styleUrls: ['./survey-form.component.css']
+  styleUrls: ['./survey-form.component.css'],
 })
 export class SurveyFormComponent implements OnInit {
-  
   surveyForm: SurveyForm;
 
   mainSurveyForm: FormGroup;
 
   /* this list will change and be length of surveyForm.questions.length() */
-  
+
   submittedAnswers = {
     shortAnswer: '',
     multipleChoice: '',
-    pickRange:''
+    pickRange: '',
   } as SurveySubmission;
 
   submitted = false;
-  /* used in */ 
-  token !:String;
+  /* used in */
+  token!: string;
 
   constructor(
     private route: ActivatedRoute,
-    private fb:FormBuilder,
+    private fb: FormBuilder,
     private surveyFormService: SurveyFormService
-    ) {}
-    
+  ) {}
 
   ngOnInit(): void {
-  
-    this.mainSurveyForm=this.fb.group({
-      shortAnswer: ['',[ Validators.required, Validators.maxLength(100)]],
-      multipleChoice:  ['',Validators.required],
-      pickRange: ['',Validators.required]
+    this.mainSurveyForm = this.fb.group({
+      shortAnswer: ['', [Validators.required, Validators.maxLength(100)]],
+      multipleChoice: ['', Validators.required],
+      pickFromRange: ['', Validators.required],
+    });
 
+    /*  */
+    this.mainSurveyForm.valueChanges.subscribe((newVal) => console.log(newVal));
 
-    }) 
-    
-    /*  */ 
-    this.mainSurveyForm.valueChanges.subscribe(newVal=>console.log(newVal))
-
-    /*  takes in token from the url PATH ' survey?token=948n613x938nm384n2b'  */ 
+    /*  takes in token from the url PATH ' survey?token=948n613x938nm384n2b'  */
     function getTokenFromUrl(): any {
-    this.route.queryParams.subscribe(params => {
-      //console.log(params);
-      this.token=params["token"];
-      console.log(this.token);
-      return this.token;
-      })
+      this.route.queryParams.subscribe((params) => {
+        this.token = params.token;
+        console.log(this.token);
+        return this.token;
+      });
     }
 
-    /*  call surveyFormService.postSurveyForm(surveyForm) */ 
+    /*  call surveyFormService.postSurveyForm(surveyForm) */
   }
-  
+
   onSubmit(): void {
     this.submitted = true;
   }
-  
 }
