@@ -7,18 +7,11 @@ import { SurveyForm } from '../models/survey-form.model';
   providedIn: 'root',
 })
 export class TakeSurveyService {
-  //TODO this is a temporary URL. Needs to be changed for deployment
-  baseURL: string = '';
+  baseURL = '';
 
   constructor(private http: HttpClient) {}
 
   getSurveyForm(token: string): any {
-    const response = this.http.get<HttpResponse<any>>(this.baseURL + 'survey/' + token);
-    let body;
-    response.subscribe((result) => {
-      body = result.body;
-    });
-    return body;
   }
 
   postSurveyForm(surveyForm: SurveyForm): Observable<any> {

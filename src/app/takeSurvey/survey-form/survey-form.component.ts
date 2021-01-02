@@ -1,10 +1,10 @@
 import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SurveyForm } from 'src/app/models/survey-form.model';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
-import {  TakeSurveyService } from 'src/app/services/take-survey.service';
+import { TakeSurveyService } from 'src/app/services/take-survey.service';
 
 @Component({
   selector: 'app-survey-form',
@@ -12,6 +12,7 @@ import {  TakeSurveyService } from 'src/app/services/take-survey.service';
   styleUrls: ['./survey-form.component.css'],
 })
 export class SurveyFormComponent implements OnInit {
+  @Input()
   surveyForm: SurveyForm;
 
   mainSurveyForm: FormGroup;
@@ -25,14 +26,12 @@ export class SurveyFormComponent implements OnInit {
   } as SurveySubmission;
 
   submitted = false;
-  
 
   constructor(
     private route: ActivatedRoute,
-    private fb:FormBuilder,
+    private fb: FormBuilder,
     private surveyFormService: TakeSurveyService
-    ) {}
-    
+  ) {}
 
   ngOnInit(): void {
     this.mainSurveyForm = this.fb.group({
@@ -44,9 +43,7 @@ export class SurveyFormComponent implements OnInit {
     /*  */
     this.mainSurveyForm.valueChanges.subscribe((newVal) => console.log(newVal));
 
-   
-
-    /*  call surveyFormService.postSurveyForm(surveySubmission) */ 
+    /*  call surveyFormService.postSurveyForm(surveySubmission) */
   }
 
   onSubmit(): void {

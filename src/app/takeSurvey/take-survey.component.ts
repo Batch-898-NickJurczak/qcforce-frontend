@@ -25,8 +25,5 @@ export class TakeSurveyComponent implements OnInit {
   }
 
   setSurvey(): any {
-    const response = this.service.getSurveyForm(this.token);
-    this.status = response[0];
-    this.survey = response[1];
   }
 }
