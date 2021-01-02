@@ -1,34 +1,26 @@
-import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { MultipleChoiceComponent } from './multiple-choice.component';
 
 describe('MultipleChoiceComponent', () => {
   let component: MultipleChoiceComponent;
   let fixture: ComponentFixture<MultipleChoiceComponent>;
-  let de: DebugElement;
-  let el: HTMLElement;
 
+  const formBuilder = new FormBuilder();
+  const mockForm = formBuilder.group({
+    shortAnswer: ['', [Validators.required, Validators.maxLength(100)]],
+    multipleChoice: ['', Validators.required],
+    pickFromRange: ['', Validators.required],
+  });
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MultipleChoiceComponent ],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule
-      ]
-    })
-    .compileComponents().then(() => {
-      fixture = TestBed.createComponent(MultipleChoiceComponent);
-
-      component = fixture.componentInstance;
-
-      de = fixture.debugElement.query(By.css('form'));
-      el = de.nativeElement;
-    });
+    TestBed.configureTestingModule({})
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(MultipleChoiceComponent);
+        component = fixture.componentInstance;
+      });
   }));
 
   beforeEach(() => {
@@ -41,8 +33,9 @@ describe('MultipleChoiceComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it ('form should be invalid', async (() => {
-    component.mainSurveyForm.controls['multipleChoice'].setValue('');
+  it('form should be invalid', () => {
+    component.mainSurveyForm = mockForm;
+    component.mainSurveyForm.controls.multipleChoice.setValue('');
     expect(component.mainSurveyForm.valid).toBeFalsy();
-  }));
+  });
 });

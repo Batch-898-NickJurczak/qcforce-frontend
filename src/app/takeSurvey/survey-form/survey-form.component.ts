@@ -9,20 +9,19 @@ import {  TakeSurveyService } from 'src/app/services/take-survey.service';
 @Component({
   selector: 'app-survey-form',
   templateUrl: './survey-form.component.html',
-  styleUrls: ['./survey-form.component.css']
+  styleUrls: ['./survey-form.component.css'],
 })
 export class SurveyFormComponent implements OnInit {
-  
   surveyForm: SurveyForm;
 
   mainSurveyForm: FormGroup;
 
   /* this list will change and be length of surveyForm.questions.length() */
-  
+
   submittedAnswers = {
     shortAnswer: '',
     multipleChoice: '',
-    pickRange:''
+    pickRange: '',
   } as SurveySubmission;
 
   submitted = false;
@@ -36,25 +35,21 @@ export class SurveyFormComponent implements OnInit {
     
 
   ngOnInit(): void {
-  
-    this.mainSurveyForm=this.fb.group({
-      shortAnswer: ['',[ Validators.required, Validators.maxLength(100)]],
-      multipleChoice:  ['',Validators.required],
-      pickRange: ['',Validators.required]
+    this.mainSurveyForm = this.fb.group({
+      shortAnswer: ['', [Validators.required, Validators.maxLength(100)]],
+      multipleChoice: ['', Validators.required],
+      pickFromRange: ['', Validators.required],
+    });
 
-
-    }) 
-    
-    /*  */ 
-    this.mainSurveyForm.valueChanges.subscribe(newVal=>console.log(newVal))
+    /*  */
+    this.mainSurveyForm.valueChanges.subscribe((newVal) => console.log(newVal));
 
    
 
     /*  call surveyFormService.postSurveyForm(surveySubmission) */ 
   }
-  
+
   onSubmit(): void {
     this.submitted = true;
   }
-  
 }

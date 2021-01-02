@@ -13,11 +13,7 @@ describe('TakeSurveyComponent', () => {
   let fixture: ComponentFixture<TakeSurveyComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TakeSurveyComponent ],
-      providers: [{provide:ActivatedRoute,
-                    useClass: MockRoute }]
-    })
+    TestBed.configureTestingModule({})
     .compileComponents();
   }));
 
