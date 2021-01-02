@@ -1,6 +1,19 @@
-<div [ngIf]="displaySurvey">
-    <p class='printout'>take-survey success!</p>
-    <app-survey-form></app-survey-form>
-</div>
+<div [ngSwitch]="status">
 
-<span>take-survey works!</span>
+  <div *ngSwitchCase="'success'" id="success">
+    Here is your survey!
+    <app-survey-form [surveyForm]="survey"></app-survey-form>
+  </div>
+
+  <div *ngSwitchCase="'failure'" id="failure">
+      Something went wrong during your request
+  </div>
+
+  <div *ngSwitchCase="'completed'" id="completed">
+      You have already completed this survey.
+  </div>
+
+  <div *ngSwitchDefault id="default">
+      Something went wrong during your request
+  </div>
+</div>

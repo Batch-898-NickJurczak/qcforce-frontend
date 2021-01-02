@@ -12,7 +12,6 @@ export class TakeSurveyComponent implements OnInit {
   token!: string;
   status: string;
   survey: SurveyForm;
-  displaySurvey = false;
 
   constructor(private route: ActivatedRoute, private service: TakeSurveyService) {}
 

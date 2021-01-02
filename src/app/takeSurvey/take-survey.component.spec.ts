@@ -1,5 +1,5 @@
 import { HtmlParser } from '@angular/compiler';
-import { DebugElement } from '@angular/core';
+import { ChangeDetectorRef, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -23,7 +23,6 @@ class MockService {
 describe('TakeSurveyComponent', () => {
   let component: TakeSurveyComponent;
   let fixture: ComponentFixture<TakeSurveyComponent>;
-  let HTMLElement: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -31,13 +30,14 @@ describe('TakeSurveyComponent', () => {
         { provide: ActivatedRoute, useClass: MockRoute },
         { provide: TakeSurveyService, useClass: MockService }
       ],
+      declarations: [TakeSurveyComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TakeSurveyComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    fixture.autoDetectChanges();
   });
 
   it('should create', () => {
@@ -48,16 +48,39 @@ describe('TakeSurveyComponent', () => {
     expect(component.token).toEqual(`48n613x938nm384n2b`);
   }));
 
-  it('should display app-survey-form', () => {
+  it('should display success element if status = success', () => {
+    fixture.componentInstance.status = 'success';
     fixture.detectChanges();
-    const printOut = fixture.debugElement.query(By.css('p')).nativeElement;
-    expect(printOut.textContent).toEqual('take-survey success!');
+    expect(fixture.debugElement.query(By.css('#success'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#failure'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('#completed'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('#default'))).toBeNull();
   });
 
-  it('should not display app-survey-form', () => {
-    component.status = 'failure';
+  it('should display failure element if status = failure', () => {
+    fixture.componentInstance.status = 'failure';
     fixture.detectChanges();
-    const printOut = fixture.debugElement.query(By.css('span')).nativeElement;
-    expect(printOut.textContent).toEqual('take-survey works!');
+    expect(fixture.debugElement.query(By.css('#failure'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#success'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('#completed'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('#default'))).toBeNull();
+  });
+
+  it('should display completed element if status = completed', () => {
+    fixture.componentInstance.status = 'completed';
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('#completed'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#success'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('#failure'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('#default'))).toBeNull();
+  });
+
+  it('should display default element if status != success | failure | completed', () => {
+    fixture.componentInstance.status = '';
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('#default'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#success'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('#failure'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('#completed'))).toBeNull();
   });
 });
