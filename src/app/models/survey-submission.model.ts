@@ -5,7 +5,6 @@ export interface SurveySubmission {
     id?: number;
     surveyId?: number;
     createdOn?:Date;
-    employeeId?:number;
-    batchId?:number;
+    questions?: String[];
     answers?: String[];
 }
