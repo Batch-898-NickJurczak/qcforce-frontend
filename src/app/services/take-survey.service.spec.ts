@@ -26,10 +26,10 @@ describe('TakeSurveyService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
   it ( 'should return a list with a string message and an object null' ,  () =>{
     let returned =service.getSurveyForm('');
     expect(returned[0]).toEqual(`message`);
     expect(returned[1]).toEqual(null);
   });
-
 });
