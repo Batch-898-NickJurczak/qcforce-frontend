@@ -13,11 +13,11 @@ export class TakeSurveyComponent implements OnInit {
   status: string;
   survey: SurveyForm;
 
-  constructor(private route: ActivatedRoute, private service: TakeSurveyService) {}
+  constructor(private userRoute: ActivatedRoute, private service: TakeSurveyService) {}
 
   ngOnInit(): void {
     /*  takes in token from the url PATH ' survey?token=948n613x938nm384n2b'  */
-    this.route.queryParams.subscribe((params) => {
+    this.userRoute.queryParams.subscribe((params) => {
       this.token = params.token;
     });
 
