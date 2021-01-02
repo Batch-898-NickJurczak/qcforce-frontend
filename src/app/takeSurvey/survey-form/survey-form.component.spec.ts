@@ -51,25 +51,25 @@ describe('SurveyFormComponent', () => {
   });
 
   it ('form should be invalid', async (() => {
-    component.surveyForm.controls['shortAnswer'].setValue('');
-    expect(component.surveyForm.valid).toBeFalsy();
+    component.mainSurveyForm.controls['shortAnswer'].setValue('');
+    expect(component.mainSurveyForm.valid).toBeFalsy();
   }));
  
   it ('form should be invalid', async (() => {
-    component.surveyForm.controls['multipleChoice'].setValue('');
-    expect(component.surveyForm.valid).toBeFalsy();
+    component.mainSurveyForm.controls['multipleChoice'].setValue('');
+    expect(component.mainSurveyForm.valid).toBeFalsy();
   }));
 
   it ('form should be invalid', async (() => {
-    component.surveyForm.controls['pickFromRange'].setValue('');
-    expect(component.surveyForm.valid).toBeFalsy();
+    component.mainSurveyForm.controls['pickFromRange'].setValue('');
+    expect(component.mainSurveyForm.valid).toBeFalsy();
   }));
 
   it ('form should be valid', async (() => {
-    component.surveyForm.controls['shortAnswer'].setValue('I love coding!');
-    component.surveyForm.controls['multipleChoice'].setValue('Yes');
-    component.surveyForm.controls['pickFromRange'].setValue('1');
-    expect(component.surveyForm.valid).toBeTruthy();
+    component.mainSurveyForm.controls['shortAnswer'].setValue('I love coding!');
+    component.mainSurveyForm.controls['multipleChoice'].setValue('Yes');
+    component.mainSurveyForm.controls['pickFromRange'].setValue('1');
+    expect(component.mainSurveyForm.valid).toBeTruthy();
   }));
 
  
