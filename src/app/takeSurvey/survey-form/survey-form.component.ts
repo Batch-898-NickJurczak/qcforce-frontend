@@ -65,6 +65,7 @@ export class SurveyFormComponent implements OnInit {
     }
 
     this.surveySubmissionForm.valueChanges.subscribe((changes) => this.updateSurvey(changes));
+    this.store.select(state => (this.submission = state.submission.data));
   }
 
   // Getter for the answers inside the form
