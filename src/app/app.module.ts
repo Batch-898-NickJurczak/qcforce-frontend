@@ -11,9 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
-/* Surveu import */
-
-
+/* Survey import */
 
 /*application components*/
 import { AppComponent } from './app.component';
@@ -73,13 +71,13 @@ import { TakeSurveyModule } from './takeSurvey/take-survey.module';
       reports: fromStore.reportsReducer,
       batches: fromStore.batchesReducer,
       associates: fromStore.associatesReducer,
-      surveyForm: fromStore.surveyFormReducer
+      surveySubmission: fromStore.surveySubmissionReducer,
     }),
     EffectsModule.forRoot([
       fromStore.ReportsEffects,
       fromStore.BatchesEffects,
       fromStore.AssociatesEffects,
-      fromStore.surveyFormEffects
+      fromStore.SurveySubmissionEffects,
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
@@ -88,10 +86,9 @@ import { TakeSurveyModule } from './takeSurvey/take-survey.module';
     ChartsModule,
     FormsModule,
     HttpClientModule,
-    CommonModule
-    
+    CommonModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
