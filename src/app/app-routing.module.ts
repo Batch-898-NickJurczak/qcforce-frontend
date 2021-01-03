@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'reports', component: ReportsViewComponent },
   { path: 'surveys', component: SurveyViewComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'admin', loadChildren: './admin/admin.module#AdminModule' }
+  { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
   { path: 'survey', loadChildren: () => TakeSurveyModule}
 ];
 
