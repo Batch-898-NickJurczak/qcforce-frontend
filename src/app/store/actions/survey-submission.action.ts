@@ -1,23 +1,25 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
 
-export const POST_SURVEY_SUBMISSION = 'Post survey submission';
-export const POST_SURVEY_SUCCESS = 'Post survey success';
-export const POST_SURVEY_FAILURE = 'Post survey failure';
+export const surveyReset = createAction(
+  '[Take Survey] Survey Reset'
+);
 
-export class PostSurveySubmission implements Action {
-  readonly type = POST_SURVEY_SUBMISSION;
-  constructor(public payload: SurveySubmission) {}
-}
+export const surveyUpdate = createAction(
+  '[Take Survey] Survey Update',
+  props<{submission: SurveySubmission}>()
+);
 
-export class PostSurveySuccess implements Action {
-    readonly type = POST_SURVEY_SUCCESS;
-    constructor(public payload?: any) {}
-}
+export const surveySubmit = createAction(
+  '[Take Survey] Survey Submit',
+  props<{submission: SurveySubmission}>()
+);
 
-export class PostSurveyFailure implements Action {
-readonly type = POST_SURVEY_FAILURE;
-constructor(public payload: any) {}
-}
+export const submissionSuccess = createAction(
+  '[Take Survey] Submission Success'
+);
 
-export type All = PostSurveySubmission | PostSurveySuccess | PostSurveyFailure;
+export const submissionFailure = createAction(
+  '[Take Survey] Submission Failure',
+  props<{error: any}>()
+);
