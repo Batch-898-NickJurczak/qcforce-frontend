@@ -1,10 +1,12 @@
-import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { SurveyForm } from 'src/app/models/survey-form.model';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
 import { SurveyFormService } from 'src/app/services/survey-form.service';
+import { AppState } from 'src/app/store';
+import * as SurveyFormAction from 'src/app/store/actions/survey-form.action';
 
 @Component({
   selector: 'app-survey-form',
@@ -12,51 +14,57 @@ import { SurveyFormService } from 'src/app/services/survey-form.service';
   styleUrls: ['./survey-form.component.css'],
 })
 export class SurveyFormComponent implements OnInit {
+
   surveyForm: SurveyForm;
+  surveySubmissionForm: FormGroup;
 
-  mainSurveyForm: FormGroup;
-
-  /* this list will change and be length of surveyForm.questions.length() */
-
-  submittedAnswers = {
-    shortAnswer: '',
-    multipleChoice: '',
-    pickRange: '',
-  } as SurveySubmission;
-
-  submitted = false;
-  /* used in */
-  token!: string;
+  loading = false;
+  success = false;
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private surveyFormService: SurveyFormService
+    private surveyFormService: SurveyFormService,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
-    this.mainSurveyForm = this.fb.group({
-      shortAnswer: ['', [Validators.required, Validators.maxLength(100)]],
-      multipleChoice: ['', Validators.required],
-      pickFromRange: ['', Validators.required],
+    this.surveySubmissionForm = this.fb.group({
+      answers: this.fb.array([])
     });
 
-    /*  */
-    this.mainSurveyForm.valueChanges.subscribe((newVal) => console.log(newVal));
-
-    /*  takes in token from the url PATH ' survey?token=948n613x938nm384n2b'  */
-    function getTokenFromUrl(): any {
-      this.route.queryParams.subscribe((params) => {
-        this.token = params.token;
-        console.log(this.token);
-        return this.token;
-      });
-    }
-
-    /*  call surveyFormService.postSurveyForm(surveyForm) */
+    this.surveySubmissionForm.valueChanges.subscribe((newVal) => console.log(newVal));
   }
 
-  onSubmit(): void {
-    this.submitted = true;
+  get answers() {
+    return this.surveySubmissionForm.get('answers') as FormArray;
+  }
+
+  addQuestion(type: string) {
+
+    const answer = this.fb.group({
+      response: ['', Validators.required]
+    });
+
+    this.answers.push(answer);
+  }
+
+  // This should submit a SurveySubmission object containing the parts of the
+  // surveyForm needed as well as the responses.
+  submitSurvey(surveyForm: SurveyForm) {
+    this.loading = true;
+
+    const formValue = this.surveySubmissionForm.value;
+
+    try {
+      // This function should eventually send to the backend as well as ngStore
+      await this.store.dispatch(new SurveyFormAction.SubmitSurveyForm(surveyForm));
+      this.success = true;
+
+    } catch(err) {
+      console.error(err);
+    }
+
+    this.loading = false;
   }
 }

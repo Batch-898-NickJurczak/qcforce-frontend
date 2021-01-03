@@ -1,10 +1,37 @@
-   <form [formGroup]="mainSurveyForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="surveySubmissionForm" (ngSubmit)="submitSurvey()">
 
-    <!-- <div *ngFor="let question of surveyForm.questionList"> -->
-            <!-- pass directive for surveyForm object -->
-        <app-question [mainSurveyForm]="mainSurveyForm" > </app-question>
-    <!-- </div> -->
+    <div formArrayName="answers">
 
-        <button type="submit" [disabled]="!mainSurveyForm.valid" class="btn btn-success">Submit</button>
+        <div *ngFor="let question of surveyForm.questions; let i=index" [formGroupName]="i">
+            
+            <!-- Print out the question which was set to index 0-->
+            <div>{{ question.question[0] }}</div>
+            
+            <div [ngSwitch]="question.type">
+                
+                <div *ngSwitchCase="'MULTIPLE_CHOICE'">
 
+                </div>
+
+                <div *ngSwitchCase="'PICK_FROM_RANGE'">
+                    <div *ngFor="let potentialAnswer of surveyForm.questions">
+
+                    </div>
+                    <input type="radio" value="{{question.question[1]}}">
+                </div>
+                                
+                <div *ngSwitchCase="'SHORT_ANSWER'">
+                    <input formControlName="response">
+                </div>
+
+                <div *ngSwitchDefault>
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <button type="submit" [disabled]="!surveySubmissionForm.valid" class="btn btn-success">Submit</button>
 </form>
