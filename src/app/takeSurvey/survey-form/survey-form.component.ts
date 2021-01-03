@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { SurveyForm } from 'src/app/models/survey-form.model';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
 import { SurveyFormService } from 'src/app/services/survey-form.service';
-import { AppState } from 'src/app/store';
+import { AppState, surveySubmit, surveyUpdate } from 'src/app/store';
 import * as SurveyFormAction from 'src/app/store/actions/survey-form.action';
 
 @Component({
@@ -46,9 +46,7 @@ export class SurveyFormComponent implements OnInit {
     week: 0
   };
   surveySubmissionForm: FormGroup;
-
-  loading = false;
-  success = false;
+  submission: SurveySubmission;
 
   constructor(
     private route: ActivatedRoute,
@@ -66,13 +64,16 @@ export class SurveyFormComponent implements OnInit {
         this.addQuestion();
     }
 
-    this.surveySubmissionForm.valueChanges.subscribe((newVal) => console.log(newVal));
+    this.surveySubmissionForm.valueChanges.subscribe((changes) => this.updateSurvey(changes));
+    this.store.select(state => (this.submission = state.submission.data));
   }
 
+  // Getter for the answers inside the form
   get answers() {
     return this.surveySubmissionForm.get('answers') as FormArray;
   }
 
+  // Iterate through questions, adding answer fields
   addQuestion() {
     const answer = this.fb.group({
       response: ['', Validators.required],
@@ -81,21 +82,32 @@ export class SurveyFormComponent implements OnInit {
     this.answers.push(answer);
   }
 
+  // Called before any NgStore operations to ensure local
+  // Submission object reflects form data.
+  updateLocalSurvey() {
+    this.submission.surveyId = this.surveyForm.id;
+    this.submission.createdOn = new Date(Date.now());
+
+    this.answers.controls.forEach(answer => {
+      this.submission.answers.push(answer.value);
+    });
+  }
+
+  // Called whenever a change is made to the form.
+  // Should update the store with the new surveySubmission information
+  updateSurvey(changes: any) {
+    this.updateLocalSurvey();
+    const submission = this.submission;
+    this.store.dispatch(surveyUpdate({submission}));
+    this.store.select(state => (this.submission = state.submission.data));
+  }
+
   // This should submit a SurveySubmission object containing the parts of the
   // surveyForm needed as well as the responses.
   submitSurvey() {
-    this.loading = true;
-
-    const formValue = this.surveySubmissionForm.value;
-
-    try {
-      // This function should eventually send to the backend as well as ngStore
-      this.store.dispatch(new SurveyFormAction.SubmitSurveyForm(this.surveyForm));
-      this.success = true;
-    } catch (err) {
-      console.error(err);
-    }
-
-    this.loading = false;
+    this.updateLocalSurvey();
+    const submission = this.submission;
+    this.store.dispatch(surveySubmit({submission}));
+    this.store.select(state => (this.submission = state.submission.data));
   }
 }
