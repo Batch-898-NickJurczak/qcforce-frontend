@@ -39,7 +39,6 @@ import { environment } from '../environments/environment';
 /*store imports*/
 import * as fromStore from './store';
 import { AssessmentGraphComponent } from './components/reports/assessment-graph/assessment-graph.component';
-import { TakeSurveyModule } from './takeSurvey/take-survey.module';
 
 @NgModule({
   declarations: [
@@ -66,11 +65,13 @@ import { TakeSurveyModule } from './takeSurvey/take-survey.module';
       reports: fromStore.reportsReducer,
       batches: fromStore.batchesReducer,
       associates: fromStore.associatesReducer,
+      associateSurvey: fromStore.associateSurveyReducer,
     }),
     EffectsModule.forRoot([
       fromStore.ReportsEffects,
       fromStore.BatchesEffects,
       fromStore.AssociatesEffects,
+      fromStore.AssociateSurveyEffects,
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),

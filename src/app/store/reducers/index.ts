@@ -5,4 +5,4 @@
 export * from './reports.reducer';
 export * from './batches.reducer';
 export * from './associates.reducer';
-
+export * from './associate-survey.reducer';
