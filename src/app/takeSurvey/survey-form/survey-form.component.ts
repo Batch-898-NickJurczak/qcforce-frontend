@@ -67,7 +67,6 @@ export class SurveyFormComponent implements OnInit {
   ngOnInit(): void {
     this.surveySubmissionForm = this.fb.group({
       answers: this.fb.array([]),
-      response: ['', Validators.required]
     });
 
     for (let {} of this.surveyForm.questions) {
@@ -75,6 +74,7 @@ export class SurveyFormComponent implements OnInit {
     }
 
     this.surveySubmissionForm.valueChanges.subscribe((changes) => this.updateSurvey(changes));
+    this.surveySubmissionForm.valueChanges.subscribe(newVal => console.log(newVal));
   }
 
   // Getter for the answers inside the form

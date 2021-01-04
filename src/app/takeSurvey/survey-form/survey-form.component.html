@@ -1,21 +1,54 @@
-<h2>{{surveyForm.title}}</h2>
+<br><h2>{{surveyForm.title}}</h2>
 
 <!-- Assign reactive form and submission method -->
-<form [formGroup]="surveySubmissionForm" (ngSubmit)="submitSurvey()">
-
+<form class="card border-success" [formGroup]="surveySubmissionForm" (ngSubmit)="submitSurvey()">
     <!-- Assign form array object -->
     <div formArrayName="answers">
-
         <!-- Loop through each question in surveyForm keeping track of an index -->
-        <div *ngFor="let question of surveyForm.questions; let i=index" [formGroupName]="i">
-            
-            <!-- Print out the question title, which was set to index 0 -->
-            <div>{{ question.question[0] }}</div>
-            
-            <app-question [surveySubmissionForm]="surveySubmissionForm" [question]="question" [answers]="answers"></app-question>
+        <div  *ngFor="let question of surveyForm.questions; let i=index" [formGroupName]="i">
+            <div class="card-body">
+                <!-- Print out the question title, which was set to index 0 -->
+                <div class="card-title">{{question.question[0]}}</div>
+                <div [ngSwitch]="question.type" >
+                    <!-- If question type is multiple choice -->
+                    <div  class="card" *ngSwitchCase="'MULTIPLE_CHOICE'" >
+                        <div class="form-check" >
+                            <!-- For each choice available -->
+                            <div *ngFor="let potentialAnswer of question.question; let p=index">
+                                <!-- Accounting for index 0 being the title -->
+                                <div *ngIf="p!=0">
+                                    <div  class="card-body" >
+                                    <!-- Make that choice an option -->
+                                        <input class="form-check-input" formControlName="response" type="radio"  value="{{question.question[p]}}" >
+                                        <label class="form-check-label" for="multipleChoice" >{{potentialAnswer}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- If question type is pick from range -->
+                    <div  class="card" *ngSwitchCase="'PICK_FROM_RANGE'">
+                        <div class="form-check form-check-inline" >
+                            <div *ngFor="let potentialAnswer of question.question; let p=index">
+                                <div  *ngIf="p!=0">
+                                    <div  class="card-body">
+                                        <input class="form-check-input"  formControlName="response" type="radio" value="{{question.question[p]}}">
+                                        <label for="pickRange">{{potentialAnswer}} </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- If question type is short answer -->
+                    <div *ngSwitchCase="'SHORT_ANSWER'">
+                        <textarea  formControlName="response" required name="response" class="form-control" type="text" placeholder="shortAnswer"></textarea>
+                    </div>
+                    <!-- Do not display anything if question type not found -->
+                    <div *ngSwitchDefault></div>
+                </div>
+            </div>
         </div>
     </div>
-
     <!-- Ensure form is valid before submission -->
     <button type="submit" [disabled]="!surveySubmissionForm.valid" class="btn btn-success">Submit</button>
 </form>
