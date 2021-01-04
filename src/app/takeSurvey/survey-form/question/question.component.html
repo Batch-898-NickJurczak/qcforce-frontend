@@ -5,3 +5,18 @@
 
 <app-pick-from-range [mainSurveyForm]="mainSurveyForm" ></app-pick-from-range> -->
 
+<div [ngSwitch]="question.type">
+
+    <div *ngSwitchCase="'MULTIPLE_CHOICE'">
+
+        <app-multiple-choice [surveySubmissionForm]="surveySubmissionForm"></app-multiple-choice>
+    </div>
+
+    <div *ngSwitchCase="'PICK_FROM_RANGE'">
+
+        <app-pick-from-range [surveySubmissionForm]="surveySubmissionForm" ></app-pick-from-range>
+    </div>
+    <div *ngSwitchCase="'SHORT_ANSWER'">
+        <app-short-answer [surveySubmissionForm]="surveySubmissionForm"></app-short-answer>
+    </div>
+</div>
