@@ -12,13 +12,10 @@ export class TakeSurveyService {
 
   constructor(private http: HttpClient) {}
 
-  getSurveyForm(token: string): any {
-    const response = this.http.get<HttpResponse<any>>(this.baseURL + 'survey/' + token);
-    let body;
-    response.subscribe((result) => {
-      body = result.body;
-    });
-    return body;
+  getSurveyForm(token: string): Observable<HttpResponse<Array<any>>> {
+    //return this.http.get<HttpResponse<any>>(this.baseURL + 'survey/' + token);
+    const response: HttpResponse<any> = new HttpResponse ({ body: [ `asidfh`, null ]}) ;
+    return of(response);
   }
 
   postSurveyForm(surveyForm: SurveyForm): Observable<any> {

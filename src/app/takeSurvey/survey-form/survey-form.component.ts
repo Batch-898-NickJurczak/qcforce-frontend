@@ -4,8 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { SurveyForm } from 'src/app/models/survey-form.model';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
-import {  TakeSurveyService } from 'src/app/services/take-survey.service';
-import { SurveyFormService } from 'src/app/services/survey-form.service';
 import { AppState, surveySubmit, surveyUpdate } from 'src/app/store';
 
 
@@ -25,7 +23,6 @@ export class SurveyFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private surveyFormService: SurveyFormService,
     private store: Store<AppState>
   ) {
     const initSubmission$ = this.store.select('submission');
