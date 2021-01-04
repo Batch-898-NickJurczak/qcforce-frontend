@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { EmailComponent } from "./components/email/email.component";
 import { MakeQuestionViewComponent } from "./components/make-question-view/make-question-view.component";
 import { QuestionResponseMultipleChoiceComponent } from "./components/make-question-view/question-response-multiple-choice/question-response-multiple-choice.component";
 import { QuestionResponseRadioComponent } from "./components/make-question-view/question-response-radio/question-response-radio.component";
@@ -20,10 +21,11 @@ export const routes: Routes = [
       { path: "range", component: QuestionResponseRadioComponent },
     ],
   },
+  { path: "email", component: EmailComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }
