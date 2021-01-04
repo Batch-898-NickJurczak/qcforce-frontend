@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -13,37 +13,9 @@ import { AppState, surveySubmit, surveyUpdate } from 'src/app/store';
   styleUrls: ['./survey-form.component.css'],
 })
 export class SurveyFormComponent implements OnInit {
-  surveyForm: SurveyForm = {
-    id: 0,
-    title: 'Test Survey',
-    createdBy: 'Conner',
-    createdOn: new Date(Date.now()),
-    version: 0,
-    questions: [
-      {
-        id: 0,
-        createdOn: new Date(Date.now()),
-        type: 'MULTIPLE_CHOICE',
-        version: 0,
-        question: ['A multiple choice question', 'Choice One', 'Choice Two'],
-      },
-      {
-        id: 1,
-        createdOn: new Date(Date.now()),
-        type: 'PICK_FROM_RANGE',
-        version: 0,
-        question: ['A pick from range question', '1', '2', '3'],
-      },
-      {
-        id: 2,
-        createdOn: new Date(Date.now()),
-        type: 'SHORT_ANSWER',
-        version: 0,
-        question: ['A short response question'],
-      },
-    ],
-    week: 0,
-  };
+  @Input()
+  surveyForm: SurveyForm ;
+
   surveySubmissionForm: FormGroup;
   submission: SurveySubmission;
 

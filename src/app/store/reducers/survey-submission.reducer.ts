@@ -3,7 +3,7 @@ import { SurveySubmission } from 'src/app/models/survey-submission.model';
 import * as SurveySubmissionActions from '../actions/survey-submission.action';
 import { SubmissionState } from '../states';
 
-export const initialSubmission: SurveySubmission = {
+const initialSubmission: SurveySubmission = {
   id: 0,
   surveyId: 0,
   createdOn: new Date(Date.now()),
@@ -12,7 +12,7 @@ export const initialSubmission: SurveySubmission = {
   answers: []
 };
 
-export const initialState: SubmissionState = {
+const initialState: SubmissionState = {
   data: initialSubmission,
   loading: false,
   loaded: false
