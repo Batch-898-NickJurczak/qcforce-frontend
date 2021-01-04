@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { Question } from 'src/app/models/question.model';
 
 @Component({
@@ -9,10 +9,12 @@ import { Question } from 'src/app/models/question.model';
 })
 export class QuestionComponent implements OnInit {
   @Input()
-  mainSurveyForm: FormGroup;
+  surveySubmissionForm: FormGroup;
 
   @Input()
-  question: Question;
+  question!: Question;
+  @Input()
+  answers: FormArray;
 
   constructor() {}
 

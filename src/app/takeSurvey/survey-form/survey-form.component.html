@@ -12,50 +12,7 @@
             <!-- Print out the question title, which was set to index 0 -->
             <div>{{ question.question[0] }}</div>
             
-            <div [ngSwitch]="question.type">
-                
-                <!-- If question type is multiple choice -->
-                <div *ngSwitchCase="'MULTIPLE_CHOICE'">
-
-                    <!-- For each choice available -->
-                    <div *ngFor="let potentialAnswer of question.question; let p=index">
-
-                        <!-- Accounting for index 0 being the title -->
-                        <div *ngIf="p!=0">
-
-                            <!-- Make that choice an option -->
-                            <span>{{potentialAnswer}}: </span>
-                            <input type="radio" value="{{question.question[p]}}" formControlName="response">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- If question type is pick from range -->
-                <div *ngSwitchCase="'PICK_FROM_RANGE'">
-
-                    <!-- For each choice available -->
-                    <div *ngFor="let potentialAnswer of question.question; let p=index">
-
-                        <!-- Accounting for index 0 being the title -->
-                        <div *ngIf="p!=0">
-
-                            <!-- Make that choice an option -->
-                            <span>{{potentialAnswer}}: </span>
-                            <input type="radio" value="{{question.question[p]}}" formControlName="response">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- If question type is pick from range -->
-                <div *ngSwitchCase="'SHORT_ANSWER'">
-
-                    <!-- Give user text box input -->
-                    <input type="text" formControlName="response">
-                </div>
-
-                <!-- Do not display anything if question type not found -->
-                <div *ngSwitchDefault></div>
-            </div>
+            <app-question [surveySubmissionForm]="surveySubmissionForm" [question]="question" [answers]="answers"></app-question>
         </div>
     </div>
 

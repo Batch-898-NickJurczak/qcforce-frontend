@@ -58,6 +58,7 @@ export class SurveyFormComponent implements OnInit {
   ngOnInit(): void {
     this.surveySubmissionForm = this.fb.group({
       answers: this.fb.array([]),
+      response: ['', Validators.required]
     });
 
     for (let {} of this.surveyForm.questions){

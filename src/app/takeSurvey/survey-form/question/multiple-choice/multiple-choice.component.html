@@ -1,8 +1,15 @@
 <div [formGroup]="surveySubmissionForm" >
+    
     <div class="form-check" >
-        <label class="form-check-label" for="multipleChoice" >
-        <input class="form-check-input" formControlName="multipleChoice" type="radio"  value="option1" > text
-       </label>
+        <!-- For each choice available -->
+        <div *ngFor="let potentialAnswer of question.question; let p=index">
+            <!-- Accounting for index 0 being the title -->
+            <div *ngIf="p!=0">
+                <!-- Make that choice an option -->
+                <label class="form-check-label" for="multipleChoice" >{{potentialAnswer}}:</label>
+                <input class="form-check-input" formControlName="response" type="radio"  value="{{question.question[p]}}" >
+            </div>
+        </div>
     </div>
 </div>
 

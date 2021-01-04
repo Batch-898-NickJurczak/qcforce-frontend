@@ -6,17 +6,21 @@
 <app-pick-from-range [mainSurveyForm]="mainSurveyForm" ></app-pick-from-range> -->
 
 <div [ngSwitch]="question.type">
-
+    <!-- If question type is multiple choice -->
     <div *ngSwitchCase="'MULTIPLE_CHOICE'">
 
-        <app-multiple-choice [surveySubmissionForm]="surveySubmissionForm"></app-multiple-choice>
+        <app-multiple-choice [surveySubmissionForm]="surveySubmissionForm" [question]="question" [answers]="answers"></app-multiple-choice>
     </div>
-
+    <!-- If question type is pick from range -->
     <div *ngSwitchCase="'PICK_FROM_RANGE'">
 
-        <app-pick-from-range [surveySubmissionForm]="surveySubmissionForm" ></app-pick-from-range>
+        <app-pick-from-range [surveySubmissionForm]="surveySubmissionForm" [question]="question" [answers]="answers"></app-pick-from-range>
     </div>
+    <!-- If question type is short answer -->
     <div *ngSwitchCase="'SHORT_ANSWER'">
-        <app-short-answer [surveySubmissionForm]="surveySubmissionForm"></app-short-answer>
+
+        <app-short-answer [surveySubmissionForm]="surveySubmissionForm"  [question]="question" [answers]="answers"></app-short-answer>
     </div>
+    <!-- Do not display anything if question type not found -->
+    <div *ngSwitchDefault></div>
 </div>

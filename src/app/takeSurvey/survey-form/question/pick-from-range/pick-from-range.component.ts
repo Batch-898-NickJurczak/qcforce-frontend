@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
+import { Question } from 'src/app/models/question.model';
 
 @Component({
   selector: 'app-pick-from-range',
@@ -7,7 +8,13 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./pick-from-range.component.css']
 })
 export class PickFromRangeComponent implements OnInit {
-  @Input()  surveySubmissionForm: FormGroup;
+  @Input()
+  surveySubmissionForm: FormGroup;
+  @Input()
+  question: Question;
+  @Input()
+  answers: FormArray;
+
   constructor() { }
 
   ngOnInit(): void {
