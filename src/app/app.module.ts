@@ -25,6 +25,8 @@ import { RatingGraphComponent } from './components/reports/rating-graph/rating-g
 import { PaceGraphComponent } from './components/reports/pace-graph/pace-graph.component';
 import { SurveyViewComponent } from './components/survey-info/survey-view/survey-view.component';
 import { SurveyQuestionsComponent } from './components/survey-info/survey-questions/survey-questions.component';
+import { TakeSurveyModule } from './takeSurvey/take-survey.module';
+
 
 /*styling imports*/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -37,6 +39,7 @@ import { environment } from '../environments/environment';
 /*store imports*/
 import * as fromStore from './store';
 import { AssessmentGraphComponent } from './components/reports/assessment-graph/assessment-graph.component';
+import { TakeSurveyModule } from './takeSurvey/take-survey.module';
 
 @NgModule({
   declarations: [
@@ -76,6 +79,7 @@ import { AssessmentGraphComponent } from './components/reports/assessment-graph/
     ChartsModule,
     FormsModule,
     HttpClientModule,
+    TakeSurveyModule
   ],
   providers: [],
   bootstrap: [AppComponent]
