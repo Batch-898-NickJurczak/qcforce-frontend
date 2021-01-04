@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { SurveyForm } from 'src/app/models/survey-form.model';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
 import { SurveyFormService } from 'src/app/services/survey-form.service';
 import { AppState, surveySubmit, surveyUpdate } from 'src/app/store';
-import * as SurveyFormAction from 'src/app/store/actions/survey-form.action';
 
 @Component({
   selector: 'app-survey-form',
@@ -26,24 +25,24 @@ export class SurveyFormComponent implements OnInit {
         createdOn: new Date(Date.now()),
         type: 'MULTIPLE_CHOICE',
         version: 0,
-        question: ['A multiple choice question', 'Choice One', 'Choice Two']
+        question: ['A multiple choice question', 'Choice One', 'Choice Two'],
       },
       {
         id: 1,
         createdOn: new Date(Date.now()),
         type: 'PICK_FROM_RANGE',
         version: 0,
-        question: ['A pick from range question', '1', '2', '3']
+        question: ['A pick from range question', '1', '2', '3'],
       },
       {
         id: 2,
         createdOn: new Date(Date.now()),
         type: 'SHORT_ANSWER',
         version: 0,
-        question: ['A short response question']
-      }
+        question: ['A short response question'],
+      },
     ],
-    week: 0
+    week: 0,
   };
   surveySubmissionForm: FormGroup;
   submission: SurveySubmission;
@@ -53,7 +52,17 @@ export class SurveyFormComponent implements OnInit {
     private fb: FormBuilder,
     private surveyFormService: SurveyFormService,
     private store: Store<AppState>
-  ) {}
+  ) {
+    const initSubmission$ = this.store.select('submission');
+    initSubmission$.subscribe((init) => {
+      this.submission = {
+        id: init.data.id,
+        surveyId: init.data.surveyId,
+        createdOn: init.data.createdOn,
+        answers: [],
+      };
+    });
+  }
 
   ngOnInit(): void {
     this.surveySubmissionForm = this.fb.group({
@@ -61,12 +70,11 @@ export class SurveyFormComponent implements OnInit {
       response: ['', Validators.required]
     });
 
-    for (let {} of this.surveyForm.questions){
-        this.addQuestion();
+    for (let {} of this.surveyForm.questions) {
+      this.addQuestion();
     }
 
     this.surveySubmissionForm.valueChanges.subscribe((changes) => this.updateSurvey(changes));
-    this.store.select(state => (this.submission = state.submission.data));
   }
 
   // Getter for the answers inside the form
@@ -89,7 +97,7 @@ export class SurveyFormComponent implements OnInit {
     this.submission.surveyId = this.surveyForm.id;
     this.submission.createdOn = new Date(Date.now());
 
-    this.answers.controls.forEach(answer => {
+    this.answers.controls.forEach((answer) => {
       this.submission.answers.push(answer.value);
     });
   }
@@ -99,8 +107,8 @@ export class SurveyFormComponent implements OnInit {
   updateSurvey(changes: any) {
     this.updateLocalSurvey();
     const submission = this.submission;
-    this.store.dispatch(surveyUpdate({submission}));
-    this.store.select(state => (this.submission = state.submission.data));
+    this.store.dispatch(surveyUpdate({ submission }));
+    this.store.select((state) => (this.submission = state.submission.data));
   }
 
   // This should submit a SurveySubmission object containing the parts of the
@@ -108,7 +116,7 @@ export class SurveyFormComponent implements OnInit {
   submitSurvey() {
     this.updateLocalSurvey();
     const submission = this.submission;
-    this.store.dispatch(surveySubmit({submission}));
-    this.store.select(state => (this.submission = state.submission.data));
+    this.store.dispatch(surveySubmit({ submission }));
+    this.store.select((state) => (this.submission = state.submission.data));
   }
 }

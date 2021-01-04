@@ -71,7 +71,7 @@ import { TakeSurveyModule } from './takeSurvey/take-survey.module';
       reports: fromStore.reportsReducer,
       batches: fromStore.batchesReducer,
       associates: fromStore.associatesReducer,
-      surveySubmission: fromStore.surveySubmissionReducer,
+      submission: fromStore.surveySubmissionReducer,
     }),
     EffectsModule.forRoot([
       fromStore.ReportsEffects,

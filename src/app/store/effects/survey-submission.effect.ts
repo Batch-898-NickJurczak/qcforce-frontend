@@ -13,9 +13,8 @@ export class SurveySubmissionEffects {
       exhaustMap((action) =>
         this.submissionService.postSurveySubmission(action.submission).pipe(
           map(() => SubmissionActions.submissionSuccess()),
+          map(() => SubmissionActions.surveyReset()),
           catchError((error) => of(SubmissionActions.submissionFailure({ error })))
-        ).pipe(
-          map(() => SubmissionActions.surveyReset())
         )
       )
     )
