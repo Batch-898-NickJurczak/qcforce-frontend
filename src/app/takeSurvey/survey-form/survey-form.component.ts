@@ -4,8 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { SurveyForm } from 'src/app/models/survey-form.model';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
+import {  TakeSurveyService } from 'src/app/services/take-survey.service';
 import { SurveyFormService } from 'src/app/services/survey-form.service';
 import { AppState, surveySubmit, surveyUpdate } from 'src/app/store';
+
 
 @Component({
   selector: 'app-survey-form',
@@ -15,6 +17,7 @@ import { AppState, surveySubmit, surveyUpdate } from 'src/app/store';
 export class SurveyFormComponent implements OnInit {
   @Input()
   surveyForm: SurveyForm ;
+
 
   surveySubmissionForm: FormGroup;
   submission: SurveySubmission;
@@ -81,6 +84,7 @@ export class SurveyFormComponent implements OnInit {
     const submission = this.submission;
     this.store.dispatch(surveyUpdate({ submission }));
     this.store.select((state) => (this.submission = state.submission.data));
+
   }
 
   // This should submit a SurveySubmission object containing the parts of the
