@@ -3,14 +3,14 @@
  *  which this application processes
  */
 
+import { Question } from './question.model';
+
 export interface SurveyForm {
-    
-    id?: number;
-    title?: String;
-    createdBy?: String; 
-    createdOn?: Date;
-    version?: number;
-    questions?: String [];
-    week?: number;
-    
+  id: number;
+  title: string;
+  createdBy: string;
+  createdOn: Date;
+  version: number;
+  questions?: Question[];
+  week?: number;
 }

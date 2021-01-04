@@ -1,19 +1,4 @@
-<div [ngSwitch]="status">
 
-  <div *ngSwitchCase="'success'" id="success">
-    Here is your survey!
-    <app-survey-form [surveyForm]="survey"></app-survey-form>
-  </div>
-
-  <div *ngSwitchCase="'failure'" id="failure">
-      Something went wrong during your request
-  </div>
-
-  <div *ngSwitchCase="'completed'" id="completed">
-      You have already completed this survey.
-  </div>
-
-  <div *ngSwitchDefault id="default">
-      Something went wrong during your request
-  </div>
+<div class="container">
+    <app-survey-form [surveyForm]="surveyForm"></app-survey-form>
 </div>
