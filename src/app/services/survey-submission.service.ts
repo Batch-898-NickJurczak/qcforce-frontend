@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 import { SurveySubmission } from '../models/survey-submission.model';
 
 @Injectable({
@@ -12,8 +13,6 @@ export class SurveySubmissionService {
   constructor(private http: HttpClient) {}
 
   postSurveySubmission(surveySubmission: SurveySubmission): Observable<any> {
-    console.log('I submitted: ' + surveySubmission);
-    return of(true);
-    // return this.http.post<boolean>(this.baseURL, surveySubmission).pipe(pluck('body'));
+     return this.http.post<any>(this.baseURL, surveySubmission).pipe(pluck('body'));
   }
 }
