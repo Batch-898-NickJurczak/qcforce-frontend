@@ -3,18 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
 import { SurveyForm } from '../models/survey-form.model';
-import { TakeSurveyService } from '../services/take-survey.service';
 import { TakeSurveyComponent } from './take-survey.component';
 
+/**
+ * For mocking the Activated Route to ensure that
+ * component can read token out of the url params
+ */
 class MockRoute {
   params: { [key: string]: string } = { token: `48n613x938nm384n2b` };
   queryParams = of(this.params);
-}
-
-class MockService {
-  getSurveyForm(token: string): any {
-    return ['success', null];
-  }
 }
 
 describe('TakeSurveyComponent', () => {
@@ -28,11 +25,12 @@ describe('TakeSurveyComponent', () => {
       providers: [
         provideMockStore({ initialState }),
         { provide: ActivatedRoute, useClass: MockRoute },
-        { provide: TakeSurveyService, useClass: MockService },
       ],
       declarations: [TakeSurveyComponent],
     }).compileComponents();
     store = TestBed.inject(MockStore);
+
+    // Set up initial state for use in mock store
     initialState = {
       associateSurvey: {
         survey: {
@@ -58,14 +56,24 @@ describe('TakeSurveyComponent', () => {
     fixture.autoDetectChanges();
   });
 
+  /**
+   * Ensure component can be built
+   */
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
+  /**
+   * Ensures component can grab token from url params
+   */
   it('should initialize token', () => {
     expect(component.token).toEqual(`48n613x938nm384n2b`);
   });
 
+  /**
+   * Ensures component sets the internal survey value off
+   * of what is in the store
+   */
   it('should set the survey from the store data', () => {
     let survey: SurveyForm;
     component.survey.subscribe(componentSurvey => survey = componentSurvey);
