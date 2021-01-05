@@ -30,7 +30,7 @@ export class MakeSurveyViewComponent implements OnInit {
       createdOn: new Date(Date.now()),
       type: "MULTIPLE_CHOICE",
       version: 1,
-      question: ['How are you?', 'not bad'],
+      question: ['How are you?', 'not bad', 'really bad', 'not great'],
     }
     let  shortAnswer: Question = {
       id: 1,
@@ -44,7 +44,7 @@ export class MakeSurveyViewComponent implements OnInit {
       createdOn: new Date(Date.now()),
       type: "PICK_FROM_RANGE",
       version: 1,
-      question: ['whats up'],
+      question: ['whats up', 'strongly disagree', 'strongly agree'],
     }
    
     let questionList: Array<Question> = [
