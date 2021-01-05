@@ -1,27 +1,38 @@
 import { createAction, props, union } from '@ngrx/store';
 import { SurveyForm } from 'src/app/models/survey-form.model';
 
+/**
+ * Subset of actions related to loading of a survey for an associate
+ * to fill out and the name of the module where the action will dispatched;
+ */
+export const SURVEY_LOAD = '[Take Survey] Survey Load';
+export const SURVEY_LOAD_SUCCESS = '[Take Survey] Survey Load Success';
+export const SURVEY_LOAD_FAILURE = '[Take Survey] Survey Load Failure';
+export const SURVEY_LOAD_FAILURE_EXPIRED = '[Take Survey] Survey Load Failure Token Expired';
+export const SURVEY_LOAD_FAILURE_COMPLETED = '[Take Survey] Survey Load Failure Survey Completed';
+
+
 export const surveyLoad = createAction(
-    '[Take Survey] Survey Load',
+    SURVEY_LOAD,
     props<{ inputToken: string }>()
 );
 
 export const surveyLoadSuccess = createAction(
-    '[Take Survey] Survey Load Success',
+    SURVEY_LOAD_SUCCESS,
     props<{ inputSurvey: SurveyForm }>()
 );
 
 export const surveyLoadFailure = createAction(
-    '[Take Survey] Survey Load Failure',
+    SURVEY_LOAD_FAILURE,
     props<{ inputError: string }>()
 );
 
 export const surveyLoadFailureExpired = createAction(
-    '[Take Survey] Survey Load Failure Token Expired'
+    SURVEY_LOAD_FAILURE_EXPIRED
 );
 
 export const surveyLoadFailureCompleted = createAction(
-    '[Take Survey] Survey Load Failure Survey Completed'
+    SURVEY_LOAD_FAILURE_COMPLETED
 
 );
 
