@@ -5,6 +5,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subject, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { Batch } from 'src/app/models/batch.model';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../../store';
 
 @Component({
   selector: 'app-email',
@@ -25,8 +28,10 @@ export class EmailComponent implements OnInit {
   currentFile?: File;
   message = '';
 
+  batches$: Observable<Batch[]>;
+
   constructor(private fb: FormBuilder,
-    private sendEmailService: SendEmailService, private cd: ChangeDetectorRef) { }
+    private sendEmailService: SendEmailService, private cd: ChangeDetectorRef, private store: Store<fromStore.AppState>) { }
 
   ngOnInit(): void {
 
@@ -40,6 +45,10 @@ export class EmailComponent implements OnInit {
       fileName: new FormControl(null,
         Validators.required)
     });
+
+    this.batches$ = this.store.select(fromStore.selectAllBatches);
+    this.store.dispatch(new fromStore.LoadBatches());
+    console.log(this.batches$[0]);
 
   }
 

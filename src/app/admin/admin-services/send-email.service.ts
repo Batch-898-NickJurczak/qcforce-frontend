@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class SendEmailService {
 
-  private baseUrl = 'http://localhost:8087';
-
   constructor(private http: HttpClient) { }
+
+  private baseUrl = 'http://localhost:8087';
 
   sendEmail(file: File, batchId: string, surveyId: number): Observable<HttpEvent<any>> {
 
@@ -23,7 +23,11 @@ export class SendEmailService {
       responseType: 'json'
     });
 
-
     return this.http.request(req);
+  }
+
+  getBatchIds(): Observable<any> {
+
+    return this.http.get((`https://caliber2-mock.revaturelabs.com/mock/training/batch/current`));
   }
 }
