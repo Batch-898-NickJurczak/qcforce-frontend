@@ -20,11 +20,11 @@ import { TakeSurveyService } from '../services/take-survey.service';
     FormsModule,
     TakeSurveyRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS , useClass: AssociateTokenInterceptor, multi: true },
     TakeSurveyService,
-    { provide: HTTP_INTERCEPTORS , useClass: AssociateTokenInterceptor, multi: true }
-  ]
+  ],
 })
 export class TakeSurveyModule { }
