@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { exhaustMap, map } from 'rxjs/operators';
 import { SurveyForm } from '../models/survey-form.model';
-import { TakeSurveyService } from '../services/take-survey.service';
 import { AppState, surveyLoad } from '../store';
 
 @Component({
@@ -33,7 +32,6 @@ export class TakeSurveyComponent implements OnInit {
   }
 
   setSurvey(): any {
-
     this.survey = this.store.select(`associateSurvey`).pipe(
       exhaustMap(state => of(state.survey))
     );

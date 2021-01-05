@@ -8,8 +8,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AssociateTokenInterceptor } from './associate-token.interceptor';
 import { TakeSurveyService } from '../services/take-survey.service';
 
-
-
 @NgModule({
   declarations: [
     TakeSurveyComponent,

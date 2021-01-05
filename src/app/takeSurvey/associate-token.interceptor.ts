@@ -5,29 +5,30 @@ import { Observable } from 'rxjs';
 import { AppState } from '../store';
 
 @Injectable()
-export class AssociateTokenInterceptor implements HttpInterceptor{
+export class AssociateTokenInterceptor implements HttpInterceptor {
+  // Read token out of store into this variable
+  private token$ = this.store.pipe(select((state) => state.associateSurvey.token));
 
-    private token$ = this.store.pipe(select(state => state.associateSurvey.token));
+  constructor(private store: Store<AppState>) {}
 
-    constructor(private store: Store<AppState>){}
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // Check if token is currently set in the store
+    let tokenIsSet: boolean;
+    this.token$.subscribe((token) => (tokenIsSet = '' !== token));
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-        // Check if token is currently set in the store
-        let tokenIsSet: boolean;
-        this.token$.subscribe(token => tokenIsSet = ('' !== token));
-
-        if (tokenIsSet) {
-            // Add Token to the header of this request
-            this.token$.subscribe(token =>
-                request = request.clone ({
-                    setHeaders: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-            );
-        }
-
-        return next.handle(request);
+    if (tokenIsSet) {
+      // Add Token to the header of this request
+      this.token$.subscribe(
+        (token) =>
+          (request = request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${token}`,
+            },
+          }))
+      );
     }
+
+    // return request to the next handler
+    return next.handle(request);
+  }
 }
