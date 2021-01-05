@@ -1,4 +1,4 @@
-import { createAction, props } from "@ngrx/store";
+import { createAction, props, union } from "@ngrx/store";
 import { SurveyForm } from 'src/app/models/survey-form.model';
 
 export const surveyLoad = createAction(
@@ -24,3 +24,13 @@ export const surveyLoadFailureCompleted = createAction(
     '[Take Survey] Survey Load Failure Survey Completed'
 
 );
+
+const allActions = union({
+    surveyLoad,
+    surveyLoadSuccess,
+    surveyLoadFailure,
+    surveyLoadFailureCompleted,
+    surveyLoadFailureExpired,
+});
+
+export type AssociateSurveyAction = typeof allActions;

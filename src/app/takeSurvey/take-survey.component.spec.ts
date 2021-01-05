@@ -47,40 +47,4 @@ describe('TakeSurveyComponent', () => {
   it('should initialize token', async(() => {
     expect(component.token).toEqual(`48n613x938nm384n2b`);
   }));
-
-  it('should display success element if status = success', () => {
-    fixture.componentInstance.status = 'success';
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('#success'))).toBeTruthy();
-    expect(fixture.debugElement.query(By.css('#failure'))).toBeNull();
-    expect(fixture.debugElement.query(By.css('#completed'))).toBeNull();
-    expect(fixture.debugElement.query(By.css('#default'))).toBeNull();
-  });
-
-  it('should display failure element if status = failure', () => {
-    fixture.componentInstance.status = 'failure';
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('#failure'))).toBeTruthy();
-    expect(fixture.debugElement.query(By.css('#success'))).toBeNull();
-    expect(fixture.debugElement.query(By.css('#completed'))).toBeNull();
-    expect(fixture.debugElement.query(By.css('#default'))).toBeNull();
-  });
-
-  it('should display completed element if status = completed', () => {
-    fixture.componentInstance.status = 'completed';
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('#completed'))).toBeTruthy();
-    expect(fixture.debugElement.query(By.css('#success'))).toBeNull();
-    expect(fixture.debugElement.query(By.css('#failure'))).toBeNull();
-    expect(fixture.debugElement.query(By.css('#default'))).toBeNull();
-  });
-
-  it('should display default element if status != success | failure | completed', () => {
-    fixture.componentInstance.status = '';
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('#default'))).toBeTruthy();
-    expect(fixture.debugElement.query(By.css('#success'))).toBeNull();
-    expect(fixture.debugElement.query(By.css('#failure'))).toBeNull();
-    expect(fixture.debugElement.query(By.css('#completed'))).toBeNull();
-  });
 });

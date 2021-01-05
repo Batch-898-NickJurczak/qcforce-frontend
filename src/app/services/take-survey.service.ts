@@ -8,14 +8,14 @@ import { SurveyForm } from '../models/survey-form.model';
 })
 export class TakeSurveyService {
   //TODO this is a temporary URL. Needs to be changed for deployment
-  baseURL: string = '';
+  baseURL: string = 'http://';
 
   constructor(private http: HttpClient) {}
 
   getSurveyForm(token: string): Observable<HttpResponse<Array<any>>> {
-    //return this.http.get<HttpResponse<any>>(this.baseURL + 'survey/' + token);
-    const response: HttpResponse<any> = new HttpResponse ({ body: [ `asidfh`, null ]}) ;
-    return of(response);
+    return this.http.get<HttpResponse<any>>(this.baseURL + 'survey/' + token);
+    // const response: HttpResponse<any> = new HttpResponse ({ body: [ `expired`, null ]}) ;
+    // return of(response);
   }
 
   postSurveyForm(surveyForm: SurveyForm): Observable<any> {

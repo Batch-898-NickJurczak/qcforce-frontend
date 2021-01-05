@@ -40,38 +40,4 @@ describe('SurveyFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should set submitted value to true', async(() => {
-    component.onSubmit();
-    expect(component.submitted).toBeTruthy();
-  }));
-
-  it('should call the onSubmit method', () => {
-    fixture.detectChanges();
-    spyOn(component, 'onSubmit');
-    el = fixture.debugElement.query(By.css('button')).nativeElement;
-    el.click();
-    expect(component.onSubmit).toHaveBeenCalledTimes(0);
-  });
-
-  it('form should be invalid', () => {
-    component.mainSurveyForm.controls.shortAnswer.setValue('');
-    expect(component.mainSurveyForm.valid).toBeFalsy();
-  });
-
-  it('form should be invalid', () => {
-    component.mainSurveyForm.controls.multipleChoice.setValue('');
-    expect(component.mainSurveyForm.valid).toBeFalsy();
-  });
-
-  it('form should be invalid', () => {
-    component.mainSurveyForm.controls.pickFromRange.setValue('');
-    expect(component.mainSurveyForm.valid).toBeFalsy();
-  });
-
-  it('form should be valid', () => {
-    component.mainSurveyForm.controls.shortAnswer.setValue('I love coding!');
-    component.mainSurveyForm.controls.multipleChoice.setValue('Yes');
-    component.mainSurveyForm.controls.pickFromRange.setValue('1');
-    expect(component.mainSurveyForm.valid).toBeTruthy();
-  });
 });

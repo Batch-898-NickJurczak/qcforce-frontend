@@ -10,7 +10,7 @@ export * from './reports.state';
 export * from './batches.state';
 export * from './associates.state';
 export * from './submission.state';
-
+export * from './associate-survey.state';
 
 export interface AppState {
   router: RouterReducerState<any>;
