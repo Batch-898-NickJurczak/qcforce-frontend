@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { SurveyForm } from 'src/app/models/survey-form.model';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
-import { AppState, surveySubmit, surveyUpdate } from 'src/app/store';
+import { AppState, submissionSubmit, submissionUpdate } from 'src/app/store';
 
 
 @Component({
@@ -91,7 +91,7 @@ export class SurveyFormComponent implements OnInit {
   updateSurvey() {
     this.updateLocalSurvey();
     const submission = this.submission;
-    this.store.dispatch(surveyUpdate({ submission }));
+    this.store.dispatch(submissionUpdate({ submission }));
   }
 
   // This should submit a SurveySubmission object containing the parts of the
@@ -99,6 +99,6 @@ export class SurveyFormComponent implements OnInit {
   submitSurvey() {
     this.updateLocalSurvey();
     const submission = this.submission;
-    this.store.dispatch(surveySubmit({ submission }));
+    this.store.dispatch(submissionSubmit({ submission }));
   }
 }
