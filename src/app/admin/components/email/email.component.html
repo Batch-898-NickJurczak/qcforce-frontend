@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row custom-wrapper">
+        <div class="col-md-12">
+
+            <form [formGroup]="emailReactiveForm" (ngSubmit)="onSubmit()">
+
+                <div class=" group-gap">
+                    <label for="typeahead-focus">Search for a batch:</label>
+                    <input id="typeahead-focus" type="text" class="form-control" formControlName="batchIdName"
+                        [ngbTypeahead]="search" (focus)="focus$.next($any($event).target.value)"
+                        (click)="click$.next($any($event).target.value)" #instance="ngbTypeahead" />
+                </div>
+                <hr>
+                <pre>Batch Id: {{ emailReactiveForm.controls.batchIdName.value }}</pre>
+                <button type="submit" class="btn btn-danger btn-lg btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

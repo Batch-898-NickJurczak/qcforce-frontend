@@ -1,6 +1,8 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AdminRoutingModule } from "./admin-routing.module";
 import { SurveyListViewComponent } from "./components/survey-list-view/survey-list-view.component";
 import { QuestionListViewComponent } from "./components/question-list-view/question-list-view.component";
@@ -33,8 +35,8 @@ import { EmailComponent } from './components/email/email.component';
     QuestionResponseRadioComponent,
     EmailComponent
   ],
-  imports: [CommonModule, AdminRoutingModule, FormsModule,ReactiveFormsModule],
+  imports: [CommonModule, AdminRoutingModule, FormsModule, ReactiveFormsModule, NgbModule],
   bootstrap: [AdminComponent]
 
 })
-export class AdminModule {}
+export class AdminModule { }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { EmailComponent } from './admin/components/email/email.component';
 import { BatchListComponent } from './components/batches/batch-list/batch-list.component';
 import { BatchesDetailsComponent } from './components/batches/batches-details/batches-details.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'surveys', component: SurveyViewComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
-  { path: 'survey', loadChildren: () => TakeSurveyModule}
+  { path: 'survey', loadChildren: () => TakeSurveyModule },
+  { path: "email", component: EmailComponent },
 ];
 
 @NgModule({

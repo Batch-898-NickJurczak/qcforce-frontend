@@ -21,7 +21,6 @@ export const routes: Routes = [
       { path: "range", component: QuestionResponseRadioComponent },
     ],
   },
-  { path: "email", component: EmailComponent },
 ];
 
 @NgModule({
