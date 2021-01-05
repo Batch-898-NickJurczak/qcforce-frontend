@@ -1,13 +1,9 @@
-import { HtmlParser } from '@angular/compiler';
-import { ChangeDetectorRef, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
+import { SurveyForm } from '../models/survey-form.model';
 import { TakeSurveyService } from '../services/take-survey.service';
-import { SurveyFormComponent } from './survey-form/survey-form.component';
-
 import { TakeSurveyComponent } from './take-survey.component';
 
 class MockRoute {
@@ -32,17 +28,24 @@ describe('TakeSurveyComponent', () => {
       providers: [
         provideMockStore({ initialState }),
         { provide: ActivatedRoute, useClass: MockRoute },
-        { provide: TakeSurveyService, useClass: MockService }
+        { provide: TakeSurveyService, useClass: MockService },
       ],
-      declarations: [TakeSurveyComponent]
+      declarations: [TakeSurveyComponent],
     }).compileComponents();
     store = TestBed.inject(MockStore);
-    initialState  = {
+    initialState = {
       associateSurvey: {
-        survey: null,
+        survey: {
+                id: 0,
+                title: 'Test survey',
+                createdBy: 'Dev team',
+                createdOn: new Date(Date.now()),
+                version: 0,
+                questions: [],
+                week: 0 },
         loaded: false,
         loading: false,
-        token: 'yugaa738279ns25vbns0mdm093n9m',
+        token: '',
         error: '',
       },
     };
@@ -59,7 +62,13 @@ describe('TakeSurveyComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize token', async(() => {
+  it('should initialize token', () => {
     expect(component.token).toEqual(`48n613x938nm384n2b`);
-  }));
+  });
+
+  it('should set the survey from the store data', () => {
+    let survey: SurveyForm;
+    component.survey.subscribe(componentSurvey => survey = componentSurvey);
+    expect(survey).toEqual(initialState.associateSurvey.survey);
+  });
 });
