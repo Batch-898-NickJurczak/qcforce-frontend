@@ -14,11 +14,6 @@ export class TakeSurveyService {
   constructor(private http: HttpClient) {}
 
   getSurveyForm(token: string): Observable<Array<any>> {
-    return this.http.get<HttpResponse<any>>(this.baseURL + 'survey/' + token).pipe(pluck('body'));
-  }
-
-  postSurveyForm(surveyForm: SurveyForm): Observable<any> {
-    /* validation pending */
-    return this.http.post<boolean>(this.baseURL, surveyForm).pipe(pluck('body'));
+    return this.http.get<HttpResponse<any>>(this.baseURL + 'survey-token').pipe(pluck('body'));
   }
 }
