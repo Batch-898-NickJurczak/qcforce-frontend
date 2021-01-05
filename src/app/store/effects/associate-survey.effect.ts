@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { exhaustMap } from 'rxjs/operators';
+import { exhaustMap, map, mergeMap } from 'rxjs/operators';
 import { TakeSurveyService } from 'src/app/services/take-survey.service';
 import * as AssociateSurveyActions from '../actions/associate-survey.action';
 
@@ -9,27 +9,26 @@ import * as AssociateSurveyActions from '../actions/associate-survey.action';
 export class AssociateSurveyEffects {
     surveyLoad$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(AssociateSurveyActions.surveyLoad),
-            exhaustMap((action) =>
-                this.surveyService.getSurveyForm(action.inputToken).pipe(
-                    exhaustMap((response) => {
+            ofType('[Take Survey] Survey Load'),
+            mergeMap((action) => this.surveyService.getSurveyForm(action.inputToken)
+                .pipe(
+                    map((response) => {
                         if (response.body[0] === `expired`) {
-                            AssociateSurveyActions.surveyLoadFailureExpired();
+                            return {type: '[Take Survey] Survey Load Failure Token Expired'};
                         }
                         else if (response.body[0] === `completed`) {
-                            AssociateSurveyActions.surveyLoadFailureCompleted();
+                            return {type: '[Take Survey] Survey Load Failure Survey Completed'};
                         }
                         else if (response.body[0] === `success`) {
-                            AssociateSurveyActions.surveyLoadSuccess(response.body[1]);
+                            return {type: '[Take Survey] Survey Load Success', prop: {inputSurvey: response.body[1]}};
                         }
                         else {
-                            AssociateSurveyActions.surveyLoadFailure(response.body[0]);
+                            return {type: '[Take Survey] Survey Load Failure', prop: {inputError: response.body[1]}};
                         }
-                        return response.body;
                     })
                 )
             )
         )
     );
-constructor(private actions$: Actions, private surveyService: TakeSurveyService) { }
+constructor(private actions$: Actions<AssociateSurveyActions.AllAssociateSurveyActions>, private surveyService: TakeSurveyService) { }
 }
