@@ -1,9 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { surveySubmit, surveyUpdate } from 'src/app/store';
 import { SurveyFormComponent } from './survey-form.component';
