@@ -1,37 +1,10 @@
-<div class="bg-light d-flex align-content-between flex-wrap">
-    <div class="d-flex">
-        <div id="menu" class="flex-fill d-none d-md-flex nav">
-                <p class="nav-link p-3" [routerLink]="['question']">
-                    Add questions TESTING!
-                </p>
-        </div>
-        <div class="flex-fill d-block d-md-none"></div>
-        <!-- <div><button class="p-3 border-0 bg-light">Sign Out</button></div>  -->
-    </div>
-    <div id="menu" class="d-flex d-md-none justify-content-center">
-            <p class="nav-link p-3" [routerLink]="['survey']">
-                View Surveys
-            </p>
-    </div>
-</div>
-<div class="bg-light d-flex align-content-between flex-wrap">
-    <div class="d-flex">
-        <div id="menu" class="flex-fill d-none d-md-flex nav">
-                <p class="nav-link p-3" [routerLink]="['send']">
-                    Send surveys
-                </p>
-        </div>
-        <div class="flex-fill d-block d-md-none"></div>
-        <!-- <div><button class="p-3 border-0 bg-light">Sign Out</button></div>  -->
-        <div class="bg-light d-flex align-content-between flex-wrap">
-            <div class="d-flex">
-                <div id="menu" class="flex-fill d-none d-md-flex nav">
-                        <p class="nav-link p-3" [routerLink]="['make']">
-                            Make survey
-                        </p>
-                </div>
-                <div class="flex-fill d-block d-md-none"></div>
-                <!-- <div><button class="p-3 border-0 bg-light">Sign Out</button></div>  -->
-</div>
+<nav class="navbar navbar-light" style="background-color: rgb(242, 105, 38)">
+    <form class="form-inline">
+      <button class="btn btn-outline-secondary" type="button" [routerLink]="['question']" >Add a new question</button>
+      <button class="btn btn-outline-secondary" type="button" [routerLink]="['survey']" >View Surveys</button>
+      <button class="btn btn-outline-secondary" type="button"  [routerLink]="['send']" >Send Surveys</button>
+      <button class="btn btn-outline-secondary" type="button" [routerLink]="['make']" >Make Survey</button>
+    </form>
+</nav>
 <router-outlet></router-outlet>
 

@@ -18,7 +18,7 @@ export class MakeSurveyViewComponent implements OnInit {
   adminInfo: FormGroup;
 
   
-  constructor(private fb: FormBuilder, private surveyService: SurveyFormService) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
@@ -30,21 +30,21 @@ export class MakeSurveyViewComponent implements OnInit {
       createdOn: new Date(Date.now()),
       type: "MULTIPLE_CHOICE",
       version: 1,
-      question: ['How are you?', 'not bad', 'really bad', 'not great'],
+      question: ['What number am I thinking of?', 'One', 'Two', 'Three'],
     }
     let  shortAnswer: Question = {
       id: 1,
       createdOn: new Date(Date.now()),
       type: "SHORT_ANSWER",
       version: 1,
-      question: ['Where are we'],
+      question: ['Please provide feedback.'],
     }
    let  pickFromRange: Question = {
       id: 1,
       createdOn: new Date(Date.now()),
       type: "PICK_FROM_RANGE",
       version: 1,
-      question: ['whats up', 'strongly disagree', 'strongly agree'],
+      question: ['How was the pace of training this week?', 'Too slow', 'Too fast'],
     }
    
     let questionList: Array<Question> = [

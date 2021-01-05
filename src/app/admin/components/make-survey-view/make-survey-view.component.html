@@ -1,4 +1,8 @@
-<button (click)= 'getQuestions()'>Get Questions</button>
+<nav class="navbar navbar-light" style="background-color: white">
+    <form class="form-inline">
+      <button class="btn btn-outline-secondary questionsBtn" type="button" (click)= 'getQuestions()'>Get Questions</button>
+    </form>
+</nav>
 
 
 <ul  *ngFor="let question of questions" >
@@ -35,5 +39,9 @@
         </div>
     </label>
 </ul>
-<button type="submit">Generate Survey</button> 
 
+<nav class="navbar navbar-light" style="background-color: white">
+    <form class="form-inline">
+      <button class="btn btn-outline-secondary" type="submit">Generate Survey</button>
+    </form>
+</nav>
