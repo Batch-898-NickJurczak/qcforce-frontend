@@ -8,16 +8,6 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { surveySubmit, surveyUpdate } from 'src/app/store';
 import { SurveyFormComponent } from './survey-form.component';
 
-/**
- * For mocking the Activated Route
- */
-class MockRoute {}
-
-/**
- * For mocking the HttpClient
- */
-class MockHttp {}
-
 describe('SurveyFormComponent', () => {
   let initialState;
   let store: MockStore;
@@ -28,8 +18,6 @@ describe('SurveyFormComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         provideMockStore({ initialState }),
-        { provide: ActivatedRoute, useClass: MockRoute },
-        { provide: HttpClient, useClass: MockHttp },
         { provide: FormBuilder, useClass: FormBuilder },
       ],
     }).compileComponents();
