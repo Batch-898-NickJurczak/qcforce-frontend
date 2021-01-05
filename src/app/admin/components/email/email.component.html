@@ -3,16 +3,46 @@
         <div class="col-md-12">
 
             <form [formGroup]="emailReactiveForm" (ngSubmit)="onSubmit()">
+                <div>
 
-                <div class=" group-gap">
-                    <label for="typeahead-focus">Search for a batch:</label>
-                    <input id="typeahead-focus" type="text" class="form-control" formControlName="batchIdName"
-                        [ngbTypeahead]="search" (focus)="focus$.next($any($event).target.value)"
-                        (click)="click$.next($any($event).target.value)" #instance="ngbTypeahead" />
+                    <div class=" group-gap">
+                        <label for="typeahead-focus">Search for a batch:</label>
+                        <input id="typeahead-focus" type="text" class="form-control" formControlName="batchIdName"
+                            [ngbTypeahead]="searchbatch" (focus)="focus$.next($any($event).target.value)"
+                            (click)="click$.next($any($event).target.value)" #instance="ngbTypeahead" />
+                    </div>
+                    <pre>Batch Id: {{ emailReactiveForm.controls.batchIdName.value }}</pre>
+                    <hr>
+
+                    <div class=" group-gap">
+                        <label for="typeahead-focus">Search for a survey:</label>
+                        <input id="typeahead-focus" type="text" class="form-control" formControlName="surveyIdName"
+                            [ngbTypeahead]="searchsurvey" (focus)="focus$.next($any($event).target.value)"
+                            (click)="click$.next($any($event).target.value)" #instance="ngbTypeahead" />
+                    </div>
+
+                    <pre>Survey Id: {{ emailReactiveForm.controls.surveyIdName.value }}</pre>
+                    <hr>
+
+                    <div class="row justify-content-md-center" >
+                        <label class="btn btn-default p-0">
+                            <input id="chooseFileButton" type="file" (change)="selectFile($event)" />
+                        </label>
+                    </div>
+
+
+                    <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
+
+                    <hr> 
+                    <div  class="sub-heading">Write batch emails:</div>
+                    <textarea class ="text-area" formControlName="textArea"></textarea>
+
+                    <hr>
+                    <button id="uploadButton" type="submit" class="btn btn-danger btn-lg btn-block"
+                        [disabled]="!selectedFiles" (click)="upload()">
+                        Submit
+                    </button>
                 </div>
-                <hr>
-                <pre>Batch Id: {{ emailReactiveForm.controls.batchIdName.value }}</pre>
-                <button type="submit" class="btn btn-danger btn-lg btn-block">Submit</button>
             </form>
         </div>
     </div>
