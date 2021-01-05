@@ -1,23 +1,24 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 import { SurveyForm } from '../models/survey-form.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class TakeSurveyService {
-  //TODO this is a temporary URL. Needs to be changed for deployment
+  // TODO: This is a temporary URL. Needs to be changed for deployment
   baseURL = '';
 
   constructor(private http: HttpClient) {}
 
-  getSurveyForm(token: string): Observable<HttpResponse<Array<any>>> {
-    return this.http.get<HttpResponse<any>>(this.baseURL + 'survey/' + token);
-    // const response: HttpResponse<any> = new HttpResponse ({ body: [ `expired`, null ]}) ;
-    // return of(response);
+  getSurveyForm(token: string): Observable<Array<any>> {
+    return this.http.get<HttpResponse<any>>(this.baseURL + 'survey/' + token).pipe(pluck('body'));
   }
 
   postSurveyForm(surveyForm: SurveyForm): Observable<any> {
     /* validation pending */
-    return this.http.post<boolean>(this.baseURL, surveyForm);
+    return this.http.post<boolean>(this.baseURL, surveyForm).pipe(pluck('body'));
   }
 }

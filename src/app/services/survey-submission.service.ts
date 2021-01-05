@@ -14,6 +14,6 @@ export class SurveySubmissionService {
   postSurveySubmission(surveySubmission: SurveySubmission): Observable<any> {
     console.log('I submitted: ' + surveySubmission);
     return of(true);
-    // return this.http.post<boolean>(this.baseURL, surveySubmission);
+    // return this.http.post<boolean>(this.baseURL, surveySubmission).pipe(pluck('body'));
   }
 }
