@@ -3,12 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { SurveyForm } from '../models/survey-form.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class TakeSurveyService {
   //TODO this is a temporary URL. Needs to be changed for deployment
-  baseURL: string = 'http://';
+  baseURL = '';
 
   constructor(private http: HttpClient) {}
 
