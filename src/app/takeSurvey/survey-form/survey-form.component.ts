@@ -13,9 +13,9 @@ import { AppState, surveySubmit, surveyUpdate } from 'src/app/store';
   styleUrls: ['./survey-form.component.css'],
 })
 export class SurveyFormComponent implements OnInit {
-  @Input()
-  surveyForm: SurveyForm ;
 
+  @Input()
+  surveyForm: SurveyForm = null;
 
   surveySubmissionForm: FormGroup;
   submission: SurveySubmission;
@@ -37,15 +37,29 @@ export class SurveyFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.surveySubmissionForm = this.fb.group({
       answers: this.fb.array([]),
     });
 
-    for (let {} of this.surveyForm.questions) {
-      this.addQuestion();
+    if (this.surveyForm !== null) {
+
+      for (let {} of this.surveyForm.questions) {
+        this.addQuestion();
+      }
+
+    }
+    else {
+      this.surveyForm = {
+        id: 0,
+        title: '',
+        createdBy: '',
+        createdOn: new Date(Date.now()),
+        version: 0
+      };
     }
 
-    this.surveySubmissionForm.valueChanges.subscribe((changes) => this.updateSurvey(changes));
+    this.surveySubmissionForm.valueChanges.subscribe(() => this.updateSurvey());
     this.surveySubmissionForm.valueChanges.subscribe(newVal => console.log(newVal));
   }
 
@@ -76,12 +90,10 @@ export class SurveyFormComponent implements OnInit {
 
   // Called whenever a change is made to the form.
   // Should update the store with the new surveySubmission information
-  updateSurvey(changes: any) {
+  updateSurvey() {
     this.updateLocalSurvey();
     const submission = this.submission;
     this.store.dispatch(surveyUpdate({ submission }));
-    this.store.select((state) => (this.submission = state.submission.data));
-
   }
 
   // This should submit a SurveySubmission object containing the parts of the
@@ -90,6 +102,5 @@ export class SurveyFormComponent implements OnInit {
     this.updateLocalSurvey();
     const submission = this.submission;
     this.store.dispatch(surveySubmit({ submission }));
-    this.store.select((state) => (this.submission = state.submission.data));
   }
 }
