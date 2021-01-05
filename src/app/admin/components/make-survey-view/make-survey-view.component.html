@@ -1,1 +1,17 @@
-<p>make-survey-view works!</p>
+<button (click)= 'getQuestions()'>Get Questions</button>
+
+<input type="checkbox">
+<ul  *ngFor="let question of questions" >
+    <label>
+        <div [ngSwitch]="question.type">
+            <div *ngSwitchCase="'MULTIPLE_CHOICE'">Question: {{question.question[0]}}
+                <div>Option 1: {{question.question[1]}}</div>
+            </div>
+            
+            <div *ngSwitchCase="'PICK_FROM_RANGE'">{{question.type}}</div>
+            
+            <div *ngSwitchCase="'SHORT_ANSWER'">{{question.type}}</div>
+        </div>
+    </label>
+</ul>
+

@@ -47,6 +47,7 @@ import { CommonModule } from '@angular/common';
 import { TakeSurveyModule } from './takeSurvey/take-survey.module';
 import { AdminNavBarComponent } from './admin/components/admin-nav-bar/admin-nav-bar.component';
 import { ViewQuestionComponent } from './admin/components/make-survey-view/view-question/view-question.component';
+import { QuestionsPipe } from './admin/admin-services/questions.pipe';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { ViewQuestionComponent } from './admin/components/make-survey-view/view-
     NavbarComponent,
     AdminNavBarComponent,
     ViewQuestionComponent,
+    QuestionsPipe,
 
   ],
   imports: [
