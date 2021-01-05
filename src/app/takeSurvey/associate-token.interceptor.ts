@@ -13,17 +13,20 @@ export class AssociateTokenInterceptor implements HttpInterceptor{
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        this.token$.subscribe( token =>
-            console.log(token)
-        );
+        // Check if token is currently set in the store
+        let tokenIsSet: boolean;
+        this.token$.subscribe(token => tokenIsSet = ('' !== token));
 
-        this.token$.subscribe(token =>
-            request = request.clone ({
-                setHeaders: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-        );
+        if (tokenIsSet) {
+            // Add Token to the header of this request
+            this.token$.subscribe(token =>
+                request = request.clone ({
+                    setHeaders: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+            );
+        }
 
         return next.handle(request);
     }
