@@ -1,12 +1,10 @@
 import { SendEmailService } from './../../admin-services/send-email.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subject, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
-
-
 
 @Component({
   selector: 'app-email',
@@ -16,6 +14,10 @@ import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators'
 
 export class EmailComponent implements OnInit {
 
+  receivedFile: File;
+  receivedBatchId: String;
+  receivedSurveyId: number;
+
   emailReactiveForm: FormGroup;
   display: string;
 
@@ -23,10 +25,8 @@ export class EmailComponent implements OnInit {
   currentFile?: File;
   message = '';
 
-  fileInfos?: Observable<any>;
-
   constructor(private fb: FormBuilder,
-    private sendEmailService: SendEmailService) { }
+    private sendEmailService: SendEmailService, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
 
@@ -35,20 +35,19 @@ export class EmailComponent implements OnInit {
         Validators.required),
 
       surveyIdName: new FormControl('',
-      Validators.required)
+        Validators.required),
+
+      fileName: new FormControl(null,
+        Validators.required)
     });
 
   }
 
-  selectFile(event:any) {
-    this.selectedFiles = event.target.files;
-  }
-
   isSubmitted = false;
 
-  batchId = ['Batch 1', 'Batch 12', 'batch 3'];
+  batchId = ['Batch1', 'Batch 12', 'batch 3'];
 
-  surveyId = ['Survey 1', 'Survey 10', 'Survey 20'];
+  surveyId = ['1', '10', '20'];
 
   @ViewChild('instance', { static: true }) instance: NgbTypeahead;
   focus$ = new Subject<string>();
@@ -65,62 +64,65 @@ export class EmailComponent implements OnInit {
     );
 
   }
-  
+
   searchsurvey = (text$: Observable<string>) => {
     const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
     const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
     const inputFocus$ = this.focus$;
-    
-  return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-    map(term => (term === '' ? this.surveyId
-      : this.surveyId.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
-  );
+
+    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+      map(term => (term === '' ? this.surveyId
+        : this.surveyId.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+    );
   }
 
+  selectFile(event) {
 
-  upload(): void {
-  
-    if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles.item(0);
-      console.log(file);
+    if (event.target.files && event.target.files.length) {
+      const [fileN] = event.target.files;
 
-      if (file) {
-        this.currentFile = file;
-        console.log(this.currentFile);
+      this.emailReactiveForm.patchValue({
+        fileName: fileN
 
-        this.sendEmailService.sendEmail( this.currentFile, null, null).subscribe(
-          (event: any) => {
-            if (event.type === HttpEventType.UploadProgress) {
-            } else if (event instanceof HttpResponse) {
-              this.message = event.body.message;
-              this.fileInfos = this.sendEmailService.getFiles();
-            }
-          },
-          (err: any) => {
-            console.log(err);
-   
-
-            if (err.error && err.error.message) {
-              this.message = err.error.message;
-            } else {
-              this.message = 'Could not upload the file!';
-            }
-
-            this.currentFile = undefined;
-          });
-      }
-
-      this.selectedFiles = undefined;
+      });
     }
+
   }
 
-
-  
   onSubmit() {
 
-    console.log(this.emailReactiveForm.controls.batchIdName.value)
-    console.log(this.emailReactiveForm.controls.surveyIdName.value)
-    console.log(this.emailReactiveForm);
+    this.receivedFile = this.emailReactiveForm.controls.fileName.value;
+    this.receivedBatchId = this.emailReactiveForm.controls.batchIdName.value;
+    this.receivedSurveyId = parseInt(this.emailReactiveForm.controls.surveyIdName.value);
 
+
+
+    console.log(this.emailReactiveForm.controls.batchIdName.value);
+    console.log(this.emailReactiveForm.controls.surveyIdName.value);
+    console.log(this.emailReactiveForm.controls.fileName.value);
+    console.log(this.emailReactiveForm);
+    console.log(this.receivedBatchId);
+
+    this.sendEmailService.sendEmail(this.emailReactiveForm.controls.fileName.value,
+      this.emailReactiveForm.controls.batchIdName.value,
+      this.emailReactiveForm.controls.surveyIdName.value).subscribe(
+        (event: any) => {
+          if (event.type === HttpEventType.UploadProgress) {
+          } else if (event instanceof HttpResponse) {
+            this.message = event.body;
+          }
+        },
+        (err: any) => {
+          console.log(err);
+
+
+          if (err.error && err.error.message) {
+            this.message = err.error.message;
+          } else {
+            this.message = 'Could not send the email!';
+          }
+
+          this.currentFile = undefined;
+        });
   }
 }

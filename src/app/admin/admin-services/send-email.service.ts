@@ -18,16 +18,12 @@ export class SendEmailService {
     formData.append('csv', file);
     formData.append('batchId', batchId);
 
-    const req = new HttpRequest('POST', `${this.baseUrl}/distribute/${surveyId}`, formData, {
+    const req = new HttpRequest('POST', `${this.baseUrl}/distribute/` + surveyId, formData, {
       reportProgress: true,
       responseType: 'json'
     });
 
 
     return this.http.request(req);
-  }
-
-  getFiles(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/files`);
   }
 }

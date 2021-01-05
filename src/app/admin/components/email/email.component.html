@@ -24,7 +24,7 @@
                     <pre>Survey Id: {{ emailReactiveForm.controls.surveyIdName.value }}</pre>
                     <hr>
 
-                    <div class="row justify-content-md-center" >
+                    <div class="row justify-content-md-center">
                         <label class="btn btn-default p-0">
                             <input id="chooseFileButton" type="file" (change)="selectFile($event)" />
                         </label>
@@ -33,13 +33,14 @@
 
                     <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
 
-                    <hr> 
-                    <div  class="sub-heading">Write batch emails:</div>
-                    <textarea class ="text-area" formControlName="textArea"></textarea>
+                    <hr>
+                    <div class="sub-heading">Write batch emails:</div>
+                    <textarea class="text-area" formControlName="textArea"></textarea>
+
 
                     <hr>
-                    <button id="uploadButton" type="submit" class="btn btn-danger btn-lg btn-block"
-                        [disabled]="!selectedFiles" (click)="upload()">
+                    <button id="sendButton" type="submit" class="btn btn-danger btn-lg btn-block"
+                        [disabled]="emailReactiveForm.invalid">
                         Submit
                     </button>
                 </div>
