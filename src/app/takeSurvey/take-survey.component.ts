@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { exhaustMap, map } from 'rxjs/operators';
 import { SurveyForm } from '../models/survey-form.model';
-import { AppState } from '../store';
+import { AppState, surveyLoad } from '../store';
 
 @Component({
   selector: 'app-take-survey',
@@ -21,15 +22,18 @@ export class TakeSurveyComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    // TODO: read token from path
-
-    // TODO: Call setSurvey
-
-    // TODO: dispatch surveyLoad with token
+    /*  takes in token from the url PATH ' survey?token=948n613x938nm384n2b'  */
+    this.userRoute.queryParams.subscribe((params) => {
+      this.token = params.token;
+    });
+    const inputToken = this.token;
+    this.setSurvey();
+    this.store.dispatch(surveyLoad({inputToken}));
   }
 
   setSurvey(): any {
-
-    // TODO: Grab survey object from store
+    this.survey = this.store.select(`associateSurvey`).pipe(
+      exhaustMap(state => of(state.survey))
+    );
   }
 }

@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { SurveyForm } from 'src/app/models/survey-form.model';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
-import { AppState } from 'src/app/store';
+import { AppState, submissionSubmit, submissionUpdate } from 'src/app/store';
 
 
 @Component({
@@ -13,65 +12,92 @@ import { AppState } from 'src/app/store';
   styleUrls: ['./survey-form.component.css'],
 })
 export class SurveyFormComponent implements OnInit {
-  
+
   @Input()
-  surveyForm: SurveyForm ;
+  surveyForm: SurveyForm = null;
 
   surveySubmissionForm: FormGroup;
   submission: SurveySubmission;
 
   constructor(
-    private route: ActivatedRoute,
     private fb: FormBuilder,
     private store: Store<AppState>
   ) {
-    // TODO: initialize submission object from store. 
+    const initSubmission$ = this.store.select('submission');
+    initSubmission$.subscribe((init) => {
+      this.submission = {
+        id: init.data.id,
+        surveyId: init.data.surveyId,
+        createdOn: init.data.createdOn,
+        answers: [],
+      };
+    });
   }
 
   ngOnInit(): void {
 
-    // TODO: init surveySubmissionForm with an answers array
+    this.surveySubmissionForm = this.fb.group({
+      answers: this.fb.array([]),
+    });
 
-    // TODO: Add each question to array
+    if (this.surveyForm !== null) {
 
-    // TODO: call updateSurvey on each form update
+      for (let {} of this.surveyForm.questions) {
+        this.addQuestion();
+      }
+
+    }
+    else {
+      this.surveyForm = {
+        id: 0,
+        title: '',
+        createdBy: '',
+        createdOn: new Date(Date.now()),
+        version: 0
+      };
+    }
+
+    this.surveySubmissionForm.valueChanges.subscribe(() => this.updateSurvey());
   }
 
   // Getter for the answers inside the form
   get answers() {
-    // TODO: Implement getter
-    return null;
+    return this.surveySubmissionForm.get('answers') as FormArray;
   }
 
   // Iterate through questions, adding answer fields
   addQuestion() {
-    // TODO: set a question object within form
+    const answer = this.fb.group({
+      response: ['', Validators.required],
+    });
 
-    // TODO: add object to answer array
+    this.answers.push(answer);
   }
 
   // Called before any NgStore operations to ensure local
   // Submission object reflects form data.
   updateLocalSurvey() {
-    // TODO: Set initial surveyId and createdOn values
+    this.submission.surveyId = this.surveyForm.id;
+    this.submission.createdOn = new Date(Date.now());
 
-    // TODO: read answers from form into submission
+    this.answers.controls.forEach((answer) => {
+      this.submission.answers.push(answer.value);
+    });
   }
 
   // Called whenever a change is made to the form.
   // Should update the store with the new surveySubmission information
-  updateSurvey(changes: any) {
-    // Call updateLocalSurvey
-
-    // Dispatch surveyUpdate action, pass it our submission to update the store
+  updateSurvey() {
+    this.updateLocalSurvey();
+    const submission = this.submission;
+    this.store.dispatch(submissionUpdate({ submission }));
   }
 
   // This should submit a SurveySubmission object containing the parts of the
   // surveyForm needed as well as the responses.
   submitSurvey() {
-    // Call updateLocalSurvey
-
-    // Dispatch surveySubmit action, pass it our submission to update the store
-    // and then the action will handle the submission process.
+    this.updateLocalSurvey();
+    const submission = this.submission;
+    this.store.dispatch(submissionSubmit({ submission }));
   }
 }
