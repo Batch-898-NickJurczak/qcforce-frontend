@@ -5,7 +5,6 @@ import { SurveyForm } from 'src/app/models/survey-form.model';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
 import { AppState, submissionSubmit, submissionUpdate } from 'src/app/store';
 
-
 @Component({
   selector: 'app-survey-form',
   templateUrl: './survey-form.component.html',

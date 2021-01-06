@@ -5,8 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TakeSurveyRoutingModule } from './take-survey-routing.module';
 import { TakeSurveyComponent } from './take-survey.component';
 
-
-
 @NgModule({
   declarations: [
     TakeSurveyComponent,

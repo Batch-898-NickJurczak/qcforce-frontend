@@ -1,0 +1,15 @@
+<form [formGroup]="multipleChoiceForm">
+
+    <div><input id="question" formControlName="question" placeholder="Please enter question prompt"></div>
+    <div><input id="choice1" formControlName="choice1" placeholder= "Enter a choice..."></div>
+    <div><input id ="choice2" formControlName="choice2" placeholder= "Enter a choice..."></div>
+    <div><input id = "choice3" formControlName="choice3" placeholder= "Enter a choice..."></div>
+    <div><input id="choice4" formControlName="choice4" placeholder= "Enter a choice..."></div>
+    
+   
+  
+    <button id = "submitButton" (click) = "onSubmit(multipleChoiceForm)" [disabled] = "multipleChoiceForm.get('question').invalid || multipleChoiceForm.get('choice1').invalid || multipleChoiceForm.get('choice2').invalid">Submit</button>
+  
+  </form>
+
+   
