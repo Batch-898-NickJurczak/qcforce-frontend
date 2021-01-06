@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { SurveyForm } from 'src/app/models/survey-form.model';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
@@ -21,7 +20,6 @@ export class SurveyFormComponent implements OnInit {
   submission: SurveySubmission;
 
   constructor(
-    private route: ActivatedRoute,
     private fb: FormBuilder,
     private store: Store<AppState>
   ) {
