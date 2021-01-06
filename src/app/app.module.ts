@@ -11,7 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
-/* Surveu import */
+/* Survey import */
 
 
 
@@ -82,6 +82,7 @@ import { ViewQuestionComponent } from './admin/components/make-survey-view/view-
       batches: fromStore.batchesReducer,
       associates: fromStore.associatesReducer,
       surveyForm: fromStore.surveyFormReducer,
+      submission: fromStore.surveySubmissionReducer,
       associateSurvey: fromStore.associateSurveyReducer,
     }),
     EffectsModule.forRoot([
@@ -89,6 +90,7 @@ import { ViewQuestionComponent } from './admin/components/make-survey-view/view-
       fromStore.BatchesEffects,
       fromStore.AssociatesEffects,
       fromStore.surveyFormEffects,
+      fromStore.SurveySubmissionEffects,
       fromStore.AssociateSurveyEffects,
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
