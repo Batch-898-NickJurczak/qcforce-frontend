@@ -1,91 +1,172 @@
-import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
-
+import { FormBuilder } from '@angular/forms';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { surveySubmit, surveyUpdate } from 'src/app/store';
 import { SurveyFormComponent } from './survey-form.component';
 
 describe('SurveyFormComponent', () => {
+  let initialState;
+  let store: MockStore;
   let component: SurveyFormComponent;
   let fixture: ComponentFixture<SurveyFormComponent>;
-  let de: DebugElement;
-  let el: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SurveyFormComponent ],
-      imports: [
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule
-      ]
-    })
-    .compileComponents().then(() => {
-      fixture = TestBed.createComponent(SurveyFormComponent);
+      providers: [
+        provideMockStore({ initialState }),
+        { provide: FormBuilder, useClass: FormBuilder },
+      ],
+    }).compileComponents();
 
-      component = fixture.componentInstance;
+    store = TestBed.inject(MockStore);
+    // Set up initial state for use in mock store
+    initialState = {
+      associateSurvey: {
+        survey: {
+          id: 0,
+          title: 'Test survey',
+          createdBy: 'Dev team',
+          createdOn: new Date(Date.now()),
+          version: 0,
+          questions: [
+            {
+              id: 0,
+              createdOn: new Date(Date.now()),
+              type: 'MULTIPLE_CHOICE',
+              version: 0,
+              question: ['A multiple choice question', 'Choice One', 'Choice Two'],
+            },
+            {
+              id: 1,
+              createdOn: new Date(Date.now()),
+              type: 'PICK_FROM_RANGE',
+              version: 0,
+              question: ['A pick from range question', '1', '2', '3'],
+            },
+            {
+              id: 2,
+              createdOn: new Date(Date.now()),
+              type: 'SHORT_ANSWER',
+              version: 0,
+              question: ['A short response question'],
+            },
+          ],
+          week: 0,
+        },
+        loaded: false,
+        loading: false,
+        token: '',
+        error: '',
+      },
+      submission: {
+        data: {
+          id: 0,
+          surveyId: 0,
+          createdOn: new Date(Date.now()),
+          employeeId: 0,
+          batchId: 0,
+          answers: [],
+        },
+        loading: false,
+        loaded: false,
+      },
+    };
+    store.setState(initialState);
 
-      de = fixture.debugElement.query(By.css('form'));
+    fixture = TestBed.createComponent(SurveyFormComponent);
+    component = fixture.componentInstance;
 
-      el = de.nativeElement;
-    });
+    // Assign input field after instantiation and reinitialize
+    component.surveyForm = initialState.associateSurvey.survey;
+    component.ngOnInit();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SurveyFormComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    fixture.autoDetectChanges();
   });
 
-  it('should set submitted value to true', async(() => {
-    component.onSubmit();
-    expect(component.submitted).toBeTruthy();
-  }));
-
-  it('should call the onSubmit method'), async(() => {
-    fixture.detectChanges();
-    spyOn(component, 'onSubmit');
-    el = fixture.debugElement.query(By.css('button')).nativeElement;
-    el.click();
-    expect(component.onSubmit).toHaveBeenCalledTimes(0);
+  /**
+   * Ensure component can be built
+   */
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
-  // it ('form should be invalid', async (() => {
-  //   component.surveyForm.controls['shortAnswer'].setValue('');
-  //   expect(component.surveyForm.valid).toBeFalsy();
-  // }));
- 
-  // it ('form should be invalid', async (() => {
-  //   component.surveyForm.controls['multipleChoice'].setValue('');
-  //   expect(component.surveyForm.valid).toBeFalsy();
-  // }));
+  /**
+   * Ensures component can init with input being null
+   */
+  it('should create even with no survey', () => {
+    component.surveyForm = null;
+    component.ngOnInit();
+    expect(component).toBeTruthy();
+  });
 
-  // it ('form should be invalid', async (() => {
-  //   component.surveyForm.controls['pickFromRange'].setValue('');
-  //   expect(component.surveyForm.valid).toBeFalsy();
-  // }));
+  /**
+   * Tests component addQuestion method
+   */
+  it('should add a question to the answers array when addQuestion() is called', () => {
+    const currentLength = component.answers.length;
+    component.addQuestion();
+    expect(component.answers.length).toEqual(currentLength + 1);
+  });
 
-  // it ('form should be valid', async (() => {
-  //   component.surveyForm.controls['shortAnswer'].setValue('I love coding!');
-  //   component.surveyForm.controls['multipleChoice'].setValue('Yes');
-  //   component.surveyForm.controls['pickFromRange'].setValue('1');
-  //   expect(component.surveyForm.valid).toBeTruthy();
-  // }));
+  /**
+   * Tests component updateLocalSurvey method
+   */
+  it('should update the submission object when updateLocalSurvey() is called', () => {
+    component.updateLocalSurvey();
 
-  // it ('form should be invalid', async (() => {
-  //   component.surveyForm.controls['shortAnswer'].setValue('');
-  //   expect(component.surveyForm.valid).toBeFalsy();
-  // }));
+    // Grab submission object that was altered with method
+    const submission = component.submission;
 
-  // it ('form should be invalid', async (() => {
-  //   component.surveyForm.controls['shortAnswer'].
-  //   setValue('I attended bootcamp starting in December of 2019 and graduating at the end of February 2020. I was a part of a batch that was taught skills in Machine Learning. Revature at this point had not had a Machine Learning course so my batch acted as a guinea pig of sorts. Training felt very disorganized and poorly put together. Most of the learning that was done was independent or with other classmates and not from the instructor. Keep in mind that I did not get to choose what course I would be taught but rather was elected based on where Revature thought I would best fit.');
-  //   expect(component.surveyForm.valid).toBeFalsy();
-  // }));
-  // it ('form should be valid', async (() => {
-  //   component.surveyForm.controls['shortAnswer'].
-  //   setValue('I attended bootcamp starting in December');
-  //   expect(component.surveyForm.valid).toBeTruthy();
-  // }));
-  
+    // Verify submission object was modified correctly
+    expect(submission.surveyId).toEqual(component.surveyForm.id);
+    expect(submission.createdOn).toBeTruthy();
+    expect(submission.answers.length).toEqual(component.answers.length);
+  });
+
+  /**
+   * Test component updateSurvey method
+   */
+  it('should call updateLocalSurvey() and dispatch surveyUpdate when updateSurvey() is called', () => {
+
+    // Set up spy's to ensure methods were called
+    spyOn(component, 'updateLocalSurvey');
+    spyOn(store, 'dispatch');
+
+    // Call method to test and read updated object
+    component.updateSurvey();
+    const submission = component.submission;
+
+    // Ensure this method has been called
+    expect(component.updateLocalSurvey).toHaveBeenCalled();
+
+    // Ensure this action was raised
+    expect(store.dispatch).toHaveBeenCalledWith(surveyUpdate({ submission }));
+
+    // Ensure this action was not raised
+    expect(store.dispatch).not.toHaveBeenCalledWith(surveySubmit({ submission }));
+  });
+
+  /**
+   * Test component submitSurvey method
+   */
+  it('should call updateLocalSurvey() and dispatch surveySubmit when submitSurvey() is called', () => {
+
+    // Set up spy's to ensure methods were called
+    spyOn(component, 'updateLocalSurvey');
+    spyOn(store, 'dispatch');
+
+    // Call method to test and read updated object
+    component.submitSurvey();
+    const submission = component.submission;
+
+    // Ensure this method has been called
+    expect(component.updateLocalSurvey).toHaveBeenCalled();
+
+    // Ensure this action was raised
+    expect(store.dispatch).toHaveBeenCalledWith(surveySubmit({ submission }));
+  });
 });
