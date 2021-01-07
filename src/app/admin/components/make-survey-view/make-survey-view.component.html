@@ -1,5 +1,6 @@
 <nav class="navbar navbar-light" style="background-color: white">
     <form class="form-inline">
+        <!--Calls the getQuestions functions which triggers the ngFor loop--->
       <button class="btn btn-outline-secondary questionsBtn" type="button" (click)= 'getQuestions()'>Get Questions</button>
     </form>
 </nav>
@@ -8,9 +9,12 @@
 <ul  *ngFor="let question of questions" >
     
     <label>
-        
+        <!--Switch case based on the type of question pulled from the database. This effects the display-->
+
         <div [ngSwitch]="question.type">
+            <!--If the question type is multiple choice-->
             <div *ngSwitchCase="'MULTIPLE_CHOICE'">
+                <!--displays the elements in the array as the question and the options-->
                 <div> <input  type="checkbox">Question: {{question.question[0]}} <br>
                     <input type="radio" id="multipleChoice" name="choice" value="choice1">
                     <label for="choice1"> Option 1: {{question.question[1]}}</label><br>
@@ -20,9 +24,10 @@
                     <label for="choice3">Option 3: {{question.question[3]}}</label>
                 </div>
             </div>
-            
+            <!--If the question type is short answer-->
             <div *ngSwitchCase="'SHORT_ANSWER'"><input type="checkbox">Question: {{question.question[0]}}</div>
             
+            <!--If the question type is pick from range-->
             <div *ngSwitchCase="'PICK_FROM_RANGE'"><input type="checkbox">Question: {{question.question[0]}}
             <br>
             Lower range: {{question.question[1]}} <input type="radio" id="range" name="range" value="1">

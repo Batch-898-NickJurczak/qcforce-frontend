@@ -30,10 +30,12 @@ export class QuestionResponseRadioComponent implements OnInit {
   
   }
   
+  //Returns the radio form questions
   get radioForms() {
     return this.radioForm.get('radios') as FormArray
   }
   
+  //Allows user to customize their ranges of responses
   addChoice() {
   
     const choice = this.fb.group({ 
@@ -43,10 +45,12 @@ export class QuestionResponseRadioComponent implements OnInit {
     this.radioForms.push(choice);
   }
   
+  //Future implementation
   deleteChoice(i) {
     this.radioForms.removeAt(i)
   }
 
+  //Submits the input to the database
   onSubmit() {
 
     this.questionService.sendQuestionPost(this.newQuestion).subscribe(

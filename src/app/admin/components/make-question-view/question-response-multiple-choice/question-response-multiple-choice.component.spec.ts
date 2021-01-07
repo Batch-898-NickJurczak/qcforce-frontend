@@ -62,7 +62,8 @@ describe("QuestionResponseMultipleChoiceComponent", () => {
     () => {
       expect(fixture.nativeElement.querySelector("#choice4").toBeTruthy());
     };
-  //Tests that the submit button enables when text is entered into
+ 
+    //Tests that the submit button enables when text is entered into
   // text area
   it("should enable button when question input and choice 1 and choice 2 is not empty", () => {
     fixture.nativeElement.querySelector("#question").innerText =
