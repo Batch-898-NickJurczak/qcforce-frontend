@@ -27,7 +27,6 @@ import { RatingGraphComponent } from "./components/reports/rating-graph/rating-g
 import { PaceGraphComponent } from "./components/reports/pace-graph/pace-graph.component";
 import { SurveyViewComponent } from "./components/survey-info/survey-view/survey-view.component";
 import { SurveyQuestionsComponent } from "./components/survey-info/survey-questions/survey-questions.component";
-import { TakeSurveyModule } from "./takeSurvey/take-survey.module";
 
 /*styling imports*/
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -43,8 +42,10 @@ import { AssessmentGraphComponent } from "./components/reports/assessment-graph/
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { AdminModule } from "./admin/admin.module";
 import { CommonModule } from "@angular/common";
+import { TakeSurveyModule } from "./takeSurvey/take-survey.module";
 import { AdminNavBarComponent } from "./admin/components/admin-nav-bar/admin-nav-bar.component";
 import { ViewQuestionComponent } from "./admin/components/make-survey-view/view-question/view-question.component";
+import { QuestionsPipe } from "./admin/admin-services/questions.pipe";
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ViewQuestionComponent } from "./admin/components/make-survey-view/view-
     NavbarComponent,
     AdminNavBarComponent,
     ViewQuestionComponent,
+    QuestionsPipe,
   ],
   imports: [
     BrowserModule,

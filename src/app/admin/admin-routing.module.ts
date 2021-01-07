@@ -5,12 +5,14 @@ import { MakeQuestionViewComponent } from "./components/make-question-view/make-
 import { QuestionResponseMultipleChoiceComponent } from "./components/make-question-view/question-response-multiple-choice/question-response-multiple-choice.component";
 import { QuestionResponseRadioComponent } from "./components/make-question-view/question-response-radio/question-response-radio.component";
 import { QuestionResponseShortAnswerComponent } from "./components/make-question-view/question-response-short-answer/question-response-short-answer.component";
+import { MakeSurveyViewComponent } from "./components/make-survey-view/make-survey-view.component";
 import { SurveyListViewComponent } from "./components/survey-list-view/survey-list-view.component";
 
 export const routes: Routes = [
   { path: "", component: AdminNavBarComponent,
 children: [ {
   path: "survey", component: SurveyListViewComponent},
+ {path: "make", component: MakeSurveyViewComponent},
 
   //path: "send", compo
 
