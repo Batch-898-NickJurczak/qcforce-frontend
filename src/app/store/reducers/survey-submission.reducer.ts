@@ -20,19 +20,19 @@ const initialState: SubmissionState = {
 
 const reducer = createReducer(
   initialState,
-  on(SurveySubmissionActions.surveyUpdate, (state, { submission }) => ({
+  on(SurveySubmissionActions.submissionUpdate, (state, { submission }) => ({
     ...state,
     data: submission
   })),
 
-  on(SurveySubmissionActions.surveyReset, (state) => ({
+  on(SurveySubmissionActions.submissionReset, (state) => ({
     ...state,
     data: initialSubmission,
     loading: false,
     loaded: false
   })),
 
-  on(SurveySubmissionActions.surveySubmit, (state, { submission }) => ({
+  on(SurveySubmissionActions.submissionSubmit, (state, { submission }) => ({
     ...state,
     data: submission,
     loading: true

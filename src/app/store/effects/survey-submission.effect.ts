@@ -9,11 +9,11 @@ import * as SubmissionActions from '../actions/survey-submission.action';
 export class SurveySubmissionEffects {
   submitSurvey$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(SubmissionActions.surveySubmit),
+      ofType(SubmissionActions.submissionSubmit),
       exhaustMap((action) =>
         this.submissionService.postSurveySubmission(action.submission).pipe(
           map(() => SubmissionActions.submissionSuccess()),
-          map(() => SubmissionActions.surveyReset()),
+          map(() => SubmissionActions.submissionReset()),
           catchError((error) => of(SubmissionActions.submissionFailure({ error })))
         )
       )
