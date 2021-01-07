@@ -1,0 +1,15 @@
+{
+  "name": "angular-bootstrap-toggle",
+  "homepage": "https://github.com/ziscloud/angular-bootstrap-toggle",
+  "version": "0.4.2",
+  "_release": "0.4.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.4.2",
+    "commit": "21e1402dbc95d1274328a4571173fbc9b195ea07"
+  },
+  "_source": "https://github.com/ziscloud/angular-bootstrap-toggle.git",
+  "_target": "^0.4.2",
+  "_originalSource": "angular-bootstrap-toggle",
+  "_direct": true
+}

@@ -19,7 +19,4 @@ describe('SurveyQuestionsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });

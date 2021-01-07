@@ -11,19 +11,19 @@ export class BatchesService {
 
   batchName: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getBatches(): Observable<Batch[]> {
     return this.http.get<Batch[]>(
-        environment.getBatchListUrl,
+      environment.getBatchListUrl,
     );
   }
-  getSurveysByBatchId(batchId: string): Observable <any> {
+  getSurveysByBatchId(batchId: string): Observable<any> {
     const url = environment.getSurveysByBatchIdUrl + '?batchId=' + batchId;
     return this.http.get<any>(url);
   }
 
-  getAssociateByBatchName(batchName: string): Observable <any> {
+  getAssociateByBatchName(batchName: string): Observable<any> {
     const url = environment.getAssociateByBatchName + batchName;
     return this.http.get<any>(url);
   }

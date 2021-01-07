@@ -1,0 +1,20 @@
+<form [formGroup]="multipleChoiceForm">
+
+    <input formControlName="question">
+
+    <div formArrayName="choices">
+  
+        <div *ngFor="let choice of multipleChoiceForms.controls; let i=index" [formGroupName]="i">
+  
+            <input formControlName="answers">
+  
+            <button (click)="deleteChoice(i)">Delete Choice</button>
+  
+        </div>
+    </div>
+  
+    <button (click)="addChoice()">Add Choice</button>
+  
+  </form>
+
+   

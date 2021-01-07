@@ -10,4 +10,3 @@ export interface SurveySubmission {
   batchId?: number;
   answers?: string[];
 }
-
