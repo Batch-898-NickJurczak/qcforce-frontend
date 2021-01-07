@@ -38,7 +38,6 @@ export class QuestionResponseMultipleChoiceComponent implements OnInit {
   }
 
   // Deletes existing choice from form group
-
   onSubmit(multipleChoiceForm: FormGroup) {
     console.log(multipleChoiceForm.get("question").value);
     console.log(multipleChoiceForm.get("question").valid);

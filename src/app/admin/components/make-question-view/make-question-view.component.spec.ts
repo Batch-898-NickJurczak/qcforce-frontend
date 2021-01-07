@@ -22,7 +22,8 @@ describe('MakeQuestionViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
+  //Tests that the buttons should create their appopriate types based on what the user selects
+  
   it('should make a button to create a new multiple choice type', () =>{
     expect(fixture.nativeElement.querySelector('#multiChoice')).toBeTruthy();
   });

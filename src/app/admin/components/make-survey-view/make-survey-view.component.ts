@@ -23,8 +23,10 @@ export class MakeSurveyViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //Should return all the questions from the database
   getQuestions(): void {
    
+    //Dummy data used to test the view
    let multipleChoice: Question = {
       id: 1,
       createdOn: new Date(Date.now()),

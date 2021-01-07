@@ -1,14 +1,21 @@
 <form class = "card-border-success" [formGroup]="multipleChoiceForm">
 
+    <!--Necessary input for form validation. The user must enter a question prompt-->
     <div><input id="question" formControlName="question" placeholder="Please enter question prompt"></div>
     <div><input id="choice1" formControlName="choice1" placeholder= "Enter a choice..."></div>
     <div><input id ="choice2" formControlName="choice2" placeholder= "Enter a choice..."></div>
+    <!--The user must enter at least two options for their multiple choice question-->
     <div><input id = "choice3" formControlName="choice3" placeholder= "Enter a choice..."></div>
     <div><input id="choice4" formControlName="choice4" placeholder= "Enter a choice..."></div>
     
    
+<<<<<<< HEAD
   
     <button class= "btn btn-dark" id = "submitButton" (click) = "onSubmit(multipleChoiceForm)" [disabled] = "multipleChoiceForm.get('question').invalid || multipleChoiceForm.get('choice1').invalid || multipleChoiceForm.get('choice2').invalid">Submit</button>
+=======
+    <!--The button will be disabled unless the appropriate input above is entered-->
+    <button id = "submitButton" (click) = "onSubmit(multipleChoiceForm)" [disabled] = "multipleChoiceForm.get('question').invalid || multipleChoiceForm.get('choice1').invalid || multipleChoiceForm.get('choice2').invalid">Submit</button>
+>>>>>>> 4736ef169f41ac6d83c3a441a87a974ae4244c66
   
   </form>
 

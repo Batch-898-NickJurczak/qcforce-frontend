@@ -35,15 +35,16 @@ describe('MakeSurveyViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  //Tests that the getQuestions method is called when the button is clicked
   it('should call getQuestions() when clicked', fakeAsync(()=>{
 
     let button = fixture.debugElement.nativeElement.querySelector('.questionsBtn');
     spyOn(component, 'getQuestions');
     button.click();
     tick();
-    //fixture.whenStable().then(() => {
+
       expect(component.getQuestions).toHaveBeenCalled();
-    //})
+  
   }));
   
 });

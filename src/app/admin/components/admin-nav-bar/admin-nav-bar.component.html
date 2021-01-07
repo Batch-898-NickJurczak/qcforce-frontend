@@ -1,10 +1,12 @@
 <nav class="navbar navbar-light" style="background-color: rgb(242, 105, 38)">
     <form class="form-inline">
+      <!--Shows the admin's nav bar options-->
       <button class="btn btn-dark" type="button" [routerLink]="['question']" >Add a new question</button>
       <button class="btn btn-dark" type="button" [routerLink]="['survey']" >View Surveys</button>
       <button class="btn btn-dark" type="button"  [routerLink]="['send']" >Send Surveys</button>
       <button class="btn btn-dark" type="button" [routerLink]="['make']" >Make Survey</button>
     </form>
 </nav>
+<!--Routes to selected option -->
 <router-outlet></router-outlet>
 
