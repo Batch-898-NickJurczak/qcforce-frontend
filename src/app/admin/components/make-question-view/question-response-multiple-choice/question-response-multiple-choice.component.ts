@@ -26,7 +26,7 @@ export class QuestionResponseMultipleChoiceComponent implements OnInit {
     private questionService: QuestionService
   ) {}
 
-  // Initializes form group
+  // Initializes form group and sets validation for fields in order to use submit button
   ngOnInit() {
     this.multipleChoiceForm = this.fb.group({
       question: ["", Validators.required],
