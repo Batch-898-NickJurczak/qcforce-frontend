@@ -46,7 +46,7 @@ import { AssessmentGraphComponent } from './components/reports/assessment-graph/
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminModule } from './admin/admin.module';
 import { CommonModule } from '@angular/common';
-import { TakeSurveyModule } from './takeSurvey/take-survey.module';
+//import { TakeSurveyModule } from './takeSurvey/take-survey.module';
 
 
 @NgModule({
@@ -78,7 +78,7 @@ import { TakeSurveyModule } from './takeSurvey/take-survey.module';
       batches: fromStore.batchesReducer,
       associates: fromStore.associatesReducer,
       surveyForm: fromStore.surveyFormReducer,
-      submission: fromStore.surveySubmissionReducer,
+      //submission: fromStore.surveySubmissionReducer,
       associateSurvey: fromStore.associateSurveyReducer,
     }),
     EffectsModule.forRoot([

@@ -11,17 +11,16 @@
                             [ngbTypeahead]="searchbatch" (focus)="focus$.next($any($event).target.value)"
                             (click)="click$.next($any($event).target.value)" #instance="ngbTypeahead" />
                     </div>
-                    <pre>Batch Id: {{ emailReactiveForm.controls.batchIdName.value }}</pre>
                     <hr>
 
                     <div class=" group-gap">
                         <label for="typeahead-focus">Search for a survey:</label>
                         <input id="typeahead-focus" type="text" class="form-control" formControlName="surveyIdName"
-                            [ngbTypeahead]="searchsurvey" (focus)="focus$.next($any($event).target.value)"
-                            (click)="click$.next($any($event).target.value)" #instance="ngbTypeahead" />
+                            [ngbTypeahead]="searchsurvey" (focus)="focus2$.next($any($event).target.value)"
+                            (click)="click2$.next($any($event).target.value)" #instance2="ngbTypeahead" />
                     </div>
 
-                    <pre>Survey Id: {{ emailReactiveForm.controls.surveyIdName.value }}</pre>
+
                     <hr>
 
                     <div class="row justify-content-md-center">

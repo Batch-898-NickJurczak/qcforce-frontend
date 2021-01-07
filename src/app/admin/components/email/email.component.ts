@@ -28,7 +28,7 @@ export class EmailComponent implements OnInit {
   currentFile?: File;
   message = '';
 
-  batches$: Observable<Batch[]>;
+  batches$: Observable<any>;
 
   constructor(private fb: FormBuilder,
     private sendEmailService: SendEmailService, private cd: ChangeDetectorRef, private store: Store<fromStore.AppState>) { }
@@ -46,17 +46,18 @@ export class EmailComponent implements OnInit {
         Validators.required)
     });
 
-    this.batches$ = this.store.select(fromStore.selectAllBatches);
-    this.store.dispatch(new fromStore.LoadBatches());
-    console.log(this.batches$[0]);
+    // this.batches$ = this.store.select(fromStore.selectAllBatches);
+    // this.store.dispatch(new fromStore.LoadBatches());
+    // this.batches$ = this.sendEmailService.getBatchIds();
+    // this.batches$.subscribe((batchsName) => console.log(batchsName[0]));
 
   }
 
   isSubmitted = false;
 
-  batchId = ['Batch1', 'Batch 12', 'batch 3'];
+  batchId = ['TR-1806', 'TR-1788', 'TR-1796', 'TR-1803', 'TR-1805', 'TR-1789', 'TR-1787', 'TR-1790', 'TR-1797', 'TR-1801']
 
-  surveyId = ['1', '10', '20'];
+  surveyId = ['123', '125', '135', '248', '375', '376', '404'];
 
   @ViewChild('instance', { static: true }) instance: NgbTypeahead;
   focus$ = new Subject<string>();
@@ -74,10 +75,14 @@ export class EmailComponent implements OnInit {
 
   }
 
+  @ViewChild('instance2', { static: true }) instance2: NgbTypeahead;
+  focus2$ = new Subject<string>();
+  click2$ = new Subject<string>();
+
   searchsurvey = (text$: Observable<string>) => {
     const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
-    const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
-    const inputFocus$ = this.focus$;
+    const clicksWithClosedPopup$ = this.click2$.pipe(filter(() => !this.instance.isPopupOpen()));
+    const inputFocus$ = this.focus2$;
 
     return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
       map(term => (term === '' ? this.surveyId
@@ -104,8 +109,6 @@ export class EmailComponent implements OnInit {
     this.receivedBatchId = this.emailReactiveForm.controls.batchIdName.value;
     this.receivedSurveyId = parseInt(this.emailReactiveForm.controls.surveyIdName.value);
 
-
-
     console.log(this.emailReactiveForm.controls.batchIdName.value);
     console.log(this.emailReactiveForm.controls.surveyIdName.value);
     console.log(this.emailReactiveForm.controls.fileName.value);
@@ -118,7 +121,7 @@ export class EmailComponent implements OnInit {
         (event: any) => {
           if (event.type === HttpEventType.UploadProgress) {
           } else if (event instanceof HttpResponse) {
-            this.message = event.body;
+            this.message = event.body.statusMessage;
           }
         },
         (err: any) => {
@@ -133,5 +136,7 @@ export class EmailComponent implements OnInit {
 
           this.currentFile = undefined;
         });
+
+    this.emailReactiveForm.reset();
   }
 }

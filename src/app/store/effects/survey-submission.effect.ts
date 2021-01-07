@@ -7,18 +7,18 @@ import * as SubmissionActions from '../actions/survey-submission.action';
 
 @Injectable()
 export class SurveySubmissionEffects {
-  submitSurvey$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(SubmissionActions.surveySubmit),
-      exhaustMap((action) =>
-        this.submissionService.postSurveySubmission(action.submission).pipe(
-          map(() => SubmissionActions.submissionSuccess()),
-          map(() => SubmissionActions.surveyReset()),
-          catchError((error) => of(SubmissionActions.submissionFailure({ error })))
-        )
-      )
-    )
-  );
+  // submitSurvey$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(SubmissionActions.surveySubmit),
+  //     exhaustMap((action) =>
+  //       this.submissionService.postSurveySubmission(action.submission).pipe(
+  //         map(() => SubmissionActions.submissionSuccess()),
+  //         map(() => SubmissionActions.surveyReset()),
+  //         catchError((error) => of(SubmissionActions.submissionFailure({ error })))
+  //       )
+  //     )
+  //   )
+  // );
 
-  constructor(private actions$: Actions, private submissionService: SurveySubmissionService) {}
+  constructor(private actions$: Actions, private submissionService: SurveySubmissionService) { }
 }
