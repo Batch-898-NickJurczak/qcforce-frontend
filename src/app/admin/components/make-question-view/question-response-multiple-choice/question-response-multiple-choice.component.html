@@ -1,0 +1,15 @@
+<form [formGroup]="multipleChoiceForm">
+
+    <div><input formControlName="question" placeholder="Please enter question prompt"></div>
+    <div><input formControlName="choice1" placeholder= "Enter a choice..."></div>
+    <div><input formControlName="choice2" placeholder= "Enter a choice..."></div>
+    <div><input formControlName="choice3" placeholder= "Enter a choice..."></div>
+    <div><input formControlName="choice4" placeholder= "Enter a choice..."></div>
+    
+   
+  
+    <button (click) = "onSubmit()" [disabled] = "!multipleChoiceForm.valid">Submit</button>
+  
+  </form>
+
+   

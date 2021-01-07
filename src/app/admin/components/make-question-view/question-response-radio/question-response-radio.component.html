@@ -1,0 +1,11 @@
+<form [formGroup]="radioForm">
+
+<div><input formControlName="question" placeholder="Please enter question prompt"></div>
+<div>
+<input placeholder="Enter lowest range label">
+</div>
+<div>
+<input placeholder="Enter highest range label">
+</div>
+<button (click) = "onSubmit()">Submit</button>
+  </form>

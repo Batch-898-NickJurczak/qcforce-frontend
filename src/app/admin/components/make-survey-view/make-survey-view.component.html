@@ -1,0 +1,47 @@
+<nav class="navbar navbar-light" style="background-color: white">
+    <form class="form-inline">
+      <button class="btn btn-outline-secondary questionsBtn" type="button" (click)= 'getQuestions()'>Get Questions</button>
+    </form>
+</nav>
+
+
+<ul  *ngFor="let question of questions" >
+    
+    <label>
+        
+        <div [ngSwitch]="question.type">
+            <div *ngSwitchCase="'MULTIPLE_CHOICE'">
+                <div> <input  type="checkbox">Question: {{question.question[0]}} <br>
+                    <input type="radio" id="multipleChoice" name="choice" value="choice1">
+                    <label for="choice1"> Option 1: {{question.question[1]}}</label><br>
+                    <input type="radio" id="multipleChoice" name="choice" value="choice2">
+                    <label for="choice2">  Option 2: {{question.question[2]}}</label><br>
+                    <input type="radio" id="multipleChoice" name="choice" value="choice3">
+                    <label for="choice3">Option 3: {{question.question[3]}}</label>
+                </div>
+            </div>
+            
+            <div *ngSwitchCase="'SHORT_ANSWER'"><input type="checkbox">Question: {{question.question[0]}}</div>
+            
+            <div *ngSwitchCase="'PICK_FROM_RANGE'"><input type="checkbox">Question: {{question.question[0]}}
+            <br>
+            Lower range: {{question.question[1]}} <input type="radio" id="range" name="range" value="1">
+            <label for="range">1 </label>
+            <input type="radio" id="range" name="range" value="2">
+            <label for="range">2 </label>
+            <input type="radio" id="range" name="range" value="3">
+            <label for="range">3 </label>
+            <input type="radio" id="range" name="range" value="4">
+            <label for="range">4 </label>
+            <input type="radio" id="range" name="range" value="5">
+            <label for="range">5 </label> Upper range: {{question.question[2]}}
+        </div>
+        </div>
+    </label>
+</ul>
+
+<nav class="navbar navbar-light" style="background-color: white">
+    <form class="form-inline">
+      <button class="btn btn-outline-secondary" type="submit">Generate Survey</button>
+    </form>
+</nav>

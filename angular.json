@@ -134,5 +134,8 @@
       }
     }
   },
-  "defaultProject": "qcforce-frontend"
+  "defaultProject": "qcforce-frontend",
+  "cli": {
+    "analytics": "84276fab-c076-4692-88f8-bd6781ff7457"
+  }
 }

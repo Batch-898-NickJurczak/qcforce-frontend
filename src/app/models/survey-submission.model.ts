@@ -2,7 +2,6 @@
  * Abstract representation of survey submission
  */
 export interface SurveySubmission {
-
   id: number;
   surveyId: number;
   createdOn: Date;
@@ -10,4 +9,3 @@ export interface SurveySubmission {
   batchId?: number;
   answers?: string[];
 }
-
