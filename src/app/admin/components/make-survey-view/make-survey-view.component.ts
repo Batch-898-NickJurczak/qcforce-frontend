@@ -23,7 +23,7 @@ export class MakeSurveyViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //Should return all the questions from the database
+  //Should return all the questions from the database.
   getQuestions(): void {
    
     //Dummy data used to test the view
