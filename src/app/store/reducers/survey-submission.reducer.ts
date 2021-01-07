@@ -18,32 +18,32 @@ const initialState: SubmissionState = {
   loaded: false
 };
 
-// const reducer = createReducer(
-//   initialState,
-//   on(SurveySubmissionActions.surveyUpdate, (state, { submission }) => ({
-//     ...state,
-//     data: submission
-//   })),
+const reducer = createReducer(
+  initialState,
+  on(SurveySubmissionActions.submissionUpdate, (state, { submission }) => ({
+    ...state,
+    data: submission
+  })),
 
-//   on(SurveySubmissionActions.surveyReset, (state) => ({
-//     ...state,
-//     data: initialSubmission,
-//     loading: false,
-//     loaded: false
-//   })),
+  on(SurveySubmissionActions.submissionReset, (state) => ({
+    ...state,
+    data: initialSubmission,
+    loading: false,
+    loaded: false
+  })),
 
-//   on(SurveySubmissionActions.surveySubmit, (state, { submission }) => ({
-//     ...state,
-//     data: submission,
-//     loading: true
-//   })),
+  on(SurveySubmissionActions.submissionSubmit, (state, { submission }) => ({
+    ...state,
+    data: submission,
+    loading: true
+  })),
 
-//   on(SurveySubmissionActions.submissionSuccess, (state) => ({
-//     ...state,
-//     loading: false
-//   })),
-// );
+  on(SurveySubmissionActions.submissionSuccess, (state) => ({
+    ...state,
+    loading: false
+  })),
+);
 
-// export function surveySubmissionReducer(state: SubmissionState | undefined, action: Action) {
-//   return reducer(state, action);
-// }
+export function surveySubmissionReducer(state: SubmissionState | undefined, action: Action) {
+  return reducer(state, action);
+}

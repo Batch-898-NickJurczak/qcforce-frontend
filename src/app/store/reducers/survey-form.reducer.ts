@@ -4,13 +4,13 @@ import { SurveyFormAction } from '../actions/survey-form.action';
 import { SurveySubmission } from 'src/app/models/survey-submission.model';
 
 
-// export interface State{
+// export interface State {
 //     data: SurveySubmission;
 //     isValid: boolean;
 // }
 
 // const initialState = new 
 
-export function surveyFormReducer(){
+export function surveyFormReducer() {
 
 }
