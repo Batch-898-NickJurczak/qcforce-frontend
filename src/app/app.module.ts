@@ -29,6 +29,8 @@ import { RatingGraphComponent } from './components/reports/rating-graph/rating-g
 import { PaceGraphComponent } from './components/reports/pace-graph/pace-graph.component';
 import { SurveyViewComponent } from './components/survey-info/survey-view/survey-view.component';
 import { SurveyQuestionsComponent } from './components/survey-info/survey-questions/survey-questions.component';
+import { TakeSurveyModule } from './takeSurvey/take-survey.module';
+
 
 /*styling imports*/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -81,13 +83,17 @@ import { QuestionsPipe } from './admin/admin-services/questions.pipe';
       reports: fromStore.reportsReducer,
       batches: fromStore.batchesReducer,
       associates: fromStore.associatesReducer,
-      surveyForm: fromStore.surveyFormReducer
+      surveyForm: fromStore.surveyFormReducer,
+      submission: fromStore.surveySubmissionReducer,
+      associateSurvey: fromStore.associateSurveyReducer,
     }),
     EffectsModule.forRoot([
       fromStore.ReportsEffects,
       fromStore.BatchesEffects,
       fromStore.AssociatesEffects,
-      fromStore.surveyFormEffects
+      fromStore.surveyFormEffects,
+      fromStore.SurveySubmissionEffects,
+      fromStore.AssociateSurveyEffects,
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
@@ -96,7 +102,8 @@ import { QuestionsPipe } from './admin/admin-services/questions.pipe';
     ChartsModule,
     FormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    TakeSurveyModule
   ],
   providers: [],
   bootstrap: [AppComponent]
